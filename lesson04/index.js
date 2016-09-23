@@ -3,8 +3,11 @@ var app = express();
 var port = process.env.PORT || 3000;
 var appData = {
     visitors: 0,
+    shows: 0,
     userAgents: []
 };
+
+app.set('view engine', 'ejs'); 
 
 app.get('/', function (req, res) {
     appData.visitors++;
@@ -12,11 +15,18 @@ app.get('/', function (req, res) {
     res.send('Welcome! You are in the core of our application!');  
 });
 
+app.get('/users', function (req, res) {
+    appData.visitors++;
+    res.sendFile(__dirname + '/users.html');
+});
+
+app.get('/image', function (req, res) {
+    appData.shows++;
+    res.sendFile(__dirname + '/image01.jpg');
+});
+
 app.get('/statistic', function (req, res) {
-    res.write('Visitor statistic.\nWe have ' + appData.visitors + ' already.\n');
-    for (var i = 0, l = appData.userAgents.length; i < l; i++)
-        res.write(i + ': ' + appData.userAgents[i] + '\n');
-    res.end('===\nLog end.');
+    res.render('stat', { visitors: appData.visitors, shows: appData.shows, ua: appData.userAgents });
 });
 
 app.listen(port);
