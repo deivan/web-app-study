@@ -6,9 +6,17 @@ var appData = {
     userAgents: []
 };
 
-app.get('/', function(req, res) {
-    console.log(req.headers);
+app.get('/', function (req, res) {
+    appData.visitors++;
+    appData.userAgents.push(req.headers['user-agent']);
     res.send('Welcome! You are in the core of our application!');  
+});
+
+app.get('/statistic', function (req, res) {
+    res.write('Visitor statistic.\nWe have ' + appData.visitors + ' already.\n');
+    for (var i = 0, l = appData.userAgents.length; i < l; i++)
+        res.write(i + ': ' + appData.userAgents[i] + '\n');
+    res.end('===\nLog end.');
 });
 
 app.listen(port);
