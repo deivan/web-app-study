@@ -1,4 +1,28 @@
 body {
     padding: 0;
     margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-size: 15px;
+}
+
+.main {
+    position: relative;
+    width:820px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+}
+
+.main__logotype {
+    width: 100%;
+    height: 200px;
+    background-image: url(images/sinichka_back.jpg);
+}
+
+.main__logotype img {
+    position: absolute;
+    top:0;
+    left: 120px;
 }
