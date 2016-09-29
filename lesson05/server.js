@@ -6,25 +6,27 @@ var appData = {
     userAgents: []
 };
 
+app.use(express.static(__dirname + '/public'));
+
 app.get('/', function (req, res) {
     appData.visitors++;
     appData.userAgents.push(req.headers['user-agent']);
-    res.sendFile(__dirname + '/static/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/news', function (req, res) {
     appData.visitors++;
-    res.sendFile(__dirname + '/static/news.html');
+    res.sendFile(__dirname + '/public/news.html');
 });
 
 app.get('/about', function (req, res) {
     appData.visitors++;
-    res.sendFile(__dirname + '/static/about.html');
+    res.sendFile(__dirname + '/public/about.html');
 });
 
 app.get('/contact', function (req, res) {
     appData.visitors++;
-    res.sendFile(__dirname + '/static/contacts.html');
+    res.sendFile(__dirname + '/public/contacts.html');
 });
 
 app.post('/contact', function (req, res) {
