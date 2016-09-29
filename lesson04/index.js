@@ -1,10 +1,13 @@
+var feed = require('feed-read-parser')
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
+
 var appData = {
     visitors: 0,
     shows: 0,
-    userAgents: []
+    userAgents: [],
+    newsContent: [],
 };
 
 app.set('view engine', 'ejs'); 
@@ -26,7 +29,28 @@ app.get('/image', function (req, res) {
 });
 
 app.get('/statistic', function (req, res) {
-    res.render('stat', { visitors: appData.visitors, shows: appData.shows, ua: appData.userAgents });
+    res.render('stat', { 
+    	visitors: appData.visitors, 
+    	shows: appData.shows, 
+    	ua: appData.userAgents 
+    });
+});
+
+app.get('/news', function (req, res) {
+	res.render('news', {
+		content: appData.newsContent,
+	});
+});
+
+feed('http://craphound.com/?feed=rss2', function(err, articles){
+	if(err) throw err;
+
+	for(i=0, l=articles.length; i<l; i++){
+        appData.newsContent[i] = {
+        	title: articles[i].title,
+            content: articles[i].content.replace(/<[^>]+>/g, '')
+        }
+	}
 });
 
 app.listen(port);
