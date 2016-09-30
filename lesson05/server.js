@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function (req, res) {
     appData.visitors++;
     appData.userAgents.push(req.headers['user-agent']);
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/public/main.html');
 });
 
 app.get('/news', function (req, res) {
