@@ -53,3 +53,28 @@ body {
     text-decoration: none;
     pointer-events: none; 
 }
+
+.content .content__sendform {
+    font-family: Courier, monospace;
+}
+
+.content .content__sendform h3 {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: #ccc;
+}
+
+.content .content__sendform input {
+    width: 30%;
+}
+
+.content .content__sendform textarea {
+    width: 50%;
+    height: 100px;
+}
+
+.content .content__sendform input[type="submit"] {
+    padding: 5px 30px;
+    cursor: pointer;
+}
