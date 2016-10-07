@@ -41,12 +41,43 @@ body {
     text-decoration: none;
     color:yellow;
     padding-left: 30px;
-    padding-right: 30px;
+    padding-right: 30px;  
 }
 
-.main nav a:hover {
-    text-decoration: underline;
+.main nav a:after {
+    content: "";
+	display: inline-block;
+	position: absolute;
+	left: 0px;
+	bottom: -10px;
+	background-color: firebrick;
+	width:0;
+	height:3px;
+	/* transition задает скорость появления линии внизу, без него будет сразу появлятся просто линия*/
+	transition: all 0.4s;
 }
+
+.main nav a {
+	position: relative;
+	text-decoration: none;
+	color: #999999
+	margin: 20px;
+	padding-top: 10px;
+	padding-right: 10px;
+}
+
+/*Селектор для цвета текста при наведении*/
+.main nav a:hover{
+	color: firebrick;
+}
+
+/*Сама линия*/
+.main nav a:hover:after{
+	width: 100%;
+}
+
+
+
 
 .main nav a.nav--active {
     color: #fff;
