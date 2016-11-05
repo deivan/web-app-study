@@ -71,6 +71,20 @@ app.get('/contact', function (req, res) {
     res.sendFile(__dirname + '/public/contacts.html');
 });
 
+app.get('/login', function (req, res) {
+    if (req.session.user) {
+      appData.visitors++;
+      res.sendFile(__dirname + '/public/success.html');
+    } else {
+      res.sendFile(__dirname + '/public/error.html');
+    }
+});
+
+app.get('/logout', function (req, res) {
+  delete req.session.user;
+  res.redirect('/');
+});
+
 app.post('/login', function (req, res) {
   console.log('req.body:', req.body)
   User.findOne({
