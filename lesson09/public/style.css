@@ -82,6 +82,24 @@ h1, h2, h3,h4, h5 {
   animation-duration: 3s;
 }
 
+.wrong-zone {
+  background-color: #f00;
+  color: yellow;
+}
+
+.wrong-image {
+  margin: 0 auto;
+}
+
+.good-zone {
+  background-color: #fff;
+  color: #080;
+}
+
+.good-image {
+  margin: 0 auto;
+}
+
 @keyframes appearIn {
     from { opacity: 0; }
     to { opacity: 1; }

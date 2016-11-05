@@ -79,14 +79,14 @@ app.post('/login', function (req, res) {
       console.log('user:', user)
       if (err) throw err;
       if (!user) {
-        res.end('User unknown');
+        res.sendFile(__dirname + '/public/error.html');
       } else {
         console.log('user:', user)
         if (user.password != req.body.password) {
-          res.end('Password is wrong!');
+          res.sendFile(__dirname + '/public/error.html');
         } else {
           req.session.user = user;
-          res.end('It is all right!!!');
+          res.sendFile(__dirname + '/public/success.html');
         }
       }
   });
