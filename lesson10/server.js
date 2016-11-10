@@ -68,7 +68,7 @@ app.get('/contact', function (req, res) {
     res.sendFile(__dirname + '/public/contacts.html');
 });
 
-app.get('/login', function (req, res) {
+app.get('/game', function (req, res) {
     if (req.session.user) {
       res.sendFile(__dirname + '/public/game.html');
     } else {
@@ -78,6 +78,10 @@ app.get('/login', function (req, res) {
 
 app.get('/logout', function (req, res) {
   delete req.session.user;
+  res.redirect('/');
+});
+
+app.get('/login', function (req, res) {
   res.redirect('/');
 });
 
