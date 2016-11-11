@@ -26,8 +26,7 @@ var schemaProfile = new Schema({
   },
   email: {
     type: String,
-    unique: true,
-    required: true
+    unique: true
   },
   level: { type: Number, default: 1 },
   goods: Array,
@@ -35,9 +34,9 @@ var schemaProfile = new Schema({
   origin: String,
   avatar: String,
   stat: {
-    wins: Number,
-    looses: Number,
-    draws: Number
+    wins: { type: Number, default: 0 },
+    looses: { type: Number, default: 0 },
+    draws: { type: Number, default: 0 }
   }
 });
 
@@ -80,14 +79,6 @@ app.get('/game', function (req, res) {
     }
 });
 
-app.post('/game', function (req, res) {
-    if (req.session.user) {
-      res.sendFile(__dirname + '/public/game.html');
-    } else {
-      res.sendFile(__dirname + '/public/error.html');
-    }
-});
-
 app.get('/logout', function (req, res) {
   delete req.session.user;
   res.redirect('/');
@@ -114,6 +105,33 @@ app.post('/login', function (req, res) {
         }
       }
   });
+});
+// API methods
+
+app.get('/api/profile', function (req, res) {
+  if (req.session.user) {
+    Profile.findOne({
+      username: req.session.user.username
+    }, function(err, profile) {
+        if (err) throw err;
+        if (!profile) {
+          var newProfile = new Profile({ username: req.session.user.username });
+          newProfile.save(function (err, profile) {
+            if (!err) {
+              res.json(profile);
+            } else {
+              res.json({error: true});
+            }
+          });
+        } else {
+//          res.setHeader('Content-Type', 'application/json');
+//          res.send(JSON.stringify(profile));
+          res.json(profile);
+        }
+    });    
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
+  }
 });
 
 app.listen(port);

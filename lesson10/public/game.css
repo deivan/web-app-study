@@ -114,6 +114,8 @@ body {
 
 .profile__item span {
   float:left;
+  color: #000;
+  margin-left:10px;
 }
 
 .profile__avatar {

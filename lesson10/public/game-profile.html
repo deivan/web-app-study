@@ -1,7 +1,8 @@
+<form action="/api/profile" method="POST">
 <h1>Profile</h1>
 <div class="profile__avatar">
   <img src="{{profile.avatar}}" />
-  <input type="text" ng-modal="profile.avatar" />
+  <input type="text" name="avatar" ng-model="profile.avatar" />
 </div>
 <div class="profile__item">
   <label>User</label>
@@ -31,9 +32,13 @@
 <h3>Personal data</h3>
 <div class="profile__item">
   <label>Email</label>
-  <input type="text" ng-model="profile.email" />
+  <input type="text" name="email" ng-model="profile.email" />
 </div>
 <div class="profile__item">
   <label>Origin</label>
-  <textarea ng-model="profile.origin"></textarea>
+  <textarea name="origin" ng-model="profile.origin"></textarea>
 </div>
+<div class="profile__item">
+  <input type="submit" value="Update" />
+</div>
+</form>

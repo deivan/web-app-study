@@ -12,6 +12,15 @@ angular.module('app',['ngRoute'])
   .controller('mainPage', function ($scope) {
     
   })
-  .controller('ProfilePage', function ($scope) {
+  .controller('ProfilePage', function ($scope, $http) {
     $scope.profile = {};
+    $http({
+      method: 'GET',
+      url: '/api/profile'
+    }).then(function successCallback(response) {
+      console.log('1',response)
+        $scope.profile = response.data;
+    }, function errorCallback(response) {
+      console.log('Error: ',response);
+    });
   });
