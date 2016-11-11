@@ -85,10 +85,46 @@ body {
   }
 }
 .main {
-  margin-top: 72px;
   padding: 0 30px 10px 40px;
   width: 100%;
   min-height: 100%;
   font-family: 'Open Sans', sans-serif;
   box-sizing: border-box;
+}
+
+.main h1, .main h3 {
+  float:left;
+  width: 100%;
+  border-bottom: 1px dotted #888;
+}
+
+.profile__item {
+  float: left;
+  width:70%;
+  height: 30px;
+  line-height: 30px;
+  color: #888;
+}
+
+.profile__item label {
+  float:left;
+  width: 100px;
+  text-align: right;
+}
+
+.profile__item span {
+  float:left;
+}
+
+.profile__avatar {
+  float: right;
+  width: 25%;
+  min-width: 150px;
+}
+
+.profile__avatar img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #000;
+  border-radius: 5px;
 }

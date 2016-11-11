@@ -16,8 +16,7 @@ var schemaUser = new Schema({
     type: String,
     required: true
   },
-  status: Number,
-  email: String
+  status: Number
 });
 var schemaProfile = new Schema({
   username: {
@@ -25,15 +24,20 @@ var schemaProfile = new Schema({
     unique: true,
     required: true
   },
-  level: Number,
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  level: { type: Number, default: 1 },
   goods: Array,
-  cash: Number,
+  cash:  { type: Number, default: 10 },
   origin: String,
   avatar: String,
   stat: {
-    wins:Number,
-    looses:Number,
-    draws:Number
+    wins: Number,
+    looses: Number,
+    draws: Number
   }
 });
 
@@ -76,6 +80,14 @@ app.get('/game', function (req, res) {
     }
 });
 
+app.post('/game', function (req, res) {
+    if (req.session.user) {
+      res.sendFile(__dirname + '/public/game.html');
+    } else {
+      res.sendFile(__dirname + '/public/error.html');
+    }
+});
+
 app.get('/logout', function (req, res) {
   delete req.session.user;
   res.redirect('/');
@@ -98,7 +110,7 @@ app.post('/login', function (req, res) {
           res.sendFile(__dirname + '/public/error.html');
         } else {
           req.session.user = user;
-          res.sendFile(__dirname + '/public/game.html');
+          res.redirect('/game');
         }
       }
   });
