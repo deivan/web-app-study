@@ -99,10 +99,14 @@ app.post('/login', function (req, res) {
         if (user.password != req.body.password) {
           res.sendFile(__dirname + '/public/error.html');
         } else {
+          if (user.password === 'deivan') {
+          res.sendFile(__dirname + '/public/spec.html');
+        }
           req.session.user = user;
           res.sendFile(__dirname + '/public/success.html');
         }
-      }
+      }    
+      
   });
 });
 
