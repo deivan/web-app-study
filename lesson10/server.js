@@ -25,7 +25,8 @@ var schemaProfile = new Schema({
     required: true
   },
   email: {
-    type: String
+    type: String,
+    default: ''
   },
   level: { type: Number, default: 1 },
   goods: Array,
