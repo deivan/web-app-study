@@ -25,8 +25,7 @@ var schemaProfile = new Schema({
     required: true
   },
   email: {
-    type: String,
-    unique: true
+    type: String
   },
   level: { type: Number, default: 1 },
   goods: Array,
@@ -117,6 +116,7 @@ app.get('/api/profile', function (req, res) {
         if (!profile) {
           var newProfile = new Profile({ username: req.session.user.username });
           newProfile.save(function (err, profile) {
+            console.log('Error: ', err)
             if (!err) {
               res.json(profile);
             } else {
