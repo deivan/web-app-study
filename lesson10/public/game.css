@@ -118,6 +118,14 @@ body {
   margin-left:10px;
 }
 
+.profile__item span.error {
+  color: #f00;
+}
+
+.profile__item span.passed {
+  color: #0f0;
+}
+
 .profile__avatar {
   float: right;
   width: 25%;

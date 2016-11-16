@@ -125,13 +125,32 @@ app.get('/api/profile', function (req, res) {
             }
           });
         } else {
-//          res.setHeader('Content-Type', 'application/json');
-//          res.send(JSON.stringify(profile));
           res.json(profile);
         }
     });    
   } else {
     res.sendFile(__dirname + '/public/error.html');
+  }
+});
+
+app.post('/api/profile', function (req, res) {
+  if (req.session.user) {
+    Profile.findOneAndUpdate({
+      username: req.session.user.username
+    }, {
+      username: req.session.user.username,
+      avatar: req.body.avatar,
+      email: req.body.email,
+      origin: req.body.origin
+    },
+    { upsert: true, new: true },
+    function(err, profile) {
+      if (!err) {
+        res.json({error: false, status: 'Profile updated successfully.'});
+      } else {
+        res.json({error: true, status: "Can't update profile data"});
+      }
+    }); 
   }
 });
 

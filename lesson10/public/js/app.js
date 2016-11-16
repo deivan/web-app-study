@@ -9,18 +9,37 @@ angular.module('app',['ngRoute'])
         template : '<h1>Eqquipment page</h1>'
       })
   })
+  
   .controller('mainPage', function ($scope) {
     
   })
+  
   .controller('ProfilePage', function ($scope, $http) {
     $scope.profile = {};
+    $scope.message = '';
+    
     $http({
       method: 'GET',
       url: '/api/profile'
-    }).then(function successCallback(response) {
-      console.log('1',response)
+    }).then(function successCallback (response) {
         $scope.profile = response.data;
-    }, function errorCallback(response) {
+    }, function errorCallback (response) {
       console.log('Error: ',response);
     });
+    
+    $scope.updateProfile = function () {
+      $http({
+        method: 'POST',
+        url: '/api/profile',
+        data: {
+          avatar: $scope.profile.avatar,
+          email: $scope.profile.email,
+          origin: $scope.profile.origin
+        }
+      }).then(function successCallback (response) {
+        $scope.message = response.data;
+       }, function errorCallback (response) {
+        console.log('Error: ',response);
+      });
+    };
   });
