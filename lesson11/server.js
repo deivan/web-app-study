@@ -141,5 +141,9 @@ app.post('/api/user', function (req, res) {
   }
 });
 
+app.post('/api/signup', function (req, res) {
+  res.json({'data':req.body});
+});
+
 app.listen(port);
 console.log('Web-app was started at port ' + port);

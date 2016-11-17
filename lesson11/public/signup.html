@@ -19,7 +19,35 @@
             </nav>
             <div class="content animation-appear">
               <form action="/api/signup" method="POST">
-                
+                <h1>Sign up</h1>
+                <div class="line">
+                  <label>* Username:</label>
+                  <input type="text" name="username" />
+                </div>
+                <div class="line">
+                  <label>* Password:</label>
+                  <input type="text" name="password" />
+                </div>
+                <div class="line">
+                  <label>* Email:</label>
+                  <input type="text" name="email" />
+                </div>
+                <div class="line">
+                  <label>Avatar (url to image):</label>
+                  <input type="text" name="avatar" />
+                </div>
+                <div class="line">
+                  <label>Origin:</label>
+                  <textarea name="origin"></textarea>
+                </div>
+                <div class="line">
+                  <label>*</label>
+                  <span>This fields is required for sign up</span>
+                </div>
+                <div class="line">
+                  <label></label>
+                  <input type="submit" value="Sign up" />
+                </div>
               </form>
             </div>
         </div>
