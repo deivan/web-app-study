@@ -125,6 +125,14 @@ h1, h2, h3,h4, h5 {
   color: #444;
 }
 
+span.error{
+  color: #f00;
+}
+
+span.success {
+  color: #0f0;
+}
+
 @keyframes appearIn {
     from { opacity: 0; }
     to { opacity: 1; }

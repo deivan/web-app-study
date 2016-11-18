@@ -39,6 +39,8 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://student:student@ds061807.mlab.com:61807/mongo-deivan');
 
 app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/public');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({ 
@@ -102,6 +104,43 @@ app.post('/login', function (req, res) {
       }
   });
 });
+
+app.post('/signup', function (req, res) {
+  console.log('body:', req.body);
+  var user;
+    User.findOne({
+      username: req.body.username
+    }, function(err, user) {
+        if (err) throw err;
+        if (user) {
+          res.render('signup', { error: {username: true}, success: false });
+        } else {
+          User.findOne({
+            email: req.body.email
+          }, function(err, user) {
+              if (err) throw err;
+              if (user) {
+                res.render('signup', { error: {email: true}, success: false });
+              } else {
+                if (req.body.password.trim() == '') {
+                  res.render('signup', { error: {password: true}, success: false });
+                } else {
+                  user = new User({
+                    username: req.body.username,
+                    email: req.body.email,
+                    password: req.body.password,
+                    avatar: req.body.avatar,
+                    origin: req.body.origin
+                  });
+                  user.save();
+                  res.render('signup', { error: false, success: true });
+                }
+              }
+          }); 
+        }
+    });  
+});
+
 // API methods
 
 app.get('/api/user', function (req, res) {
@@ -139,10 +178,6 @@ app.post('/api/user', function (req, res) {
       }
     }); 
   }
-});
-
-app.post('/api/signup', function (req, res) {
-  res.json({'data':req.body});
 });
 
 app.listen(port);

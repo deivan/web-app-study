@@ -23,14 +23,23 @@
                 <div class="line">
                   <label>* Username:</label>
                   <input type="text" name="username" />
+                  <% if (error.username) { %>
+                    <span class="error">Username is wrong or user is exist</span>
+                  <% } %>
                 </div>
                 <div class="line">
                   <label>* Password:</label>
                   <input type="text" name="password" />
+                  <% if (error.password) { %>
+                    <span class="error">Password is required</span>
+                  <% } %>
                 </div>
                 <div class="line">
                   <label>* Email:</label>
                   <input type="text" name="email" />
+                  <% if (error.email) { %>
+                    <span class="error">Email is used or absent</span>
+                  <% } %>
                 </div>
                 <div class="line">
                   <label>Avatar (url to image):</label>
@@ -47,9 +56,20 @@
                 <div class="line">
                   <label></label>
                   <input type="submit" value="Sign up" />
+                  <% if (success) { %>
+                    <span class="success">Registration is complete! You can login after 3 sec...</span>
+                    <script>
+                      window.onload = function () {
+                        setTimeout(function() {
+                          window.location.href = '/';
+                        }, 3000);
+                      };
+                    </script>
+                  <% } %>
                 </div>
               </form>
             </div>
         </div>
     </body>
 </html>
+
