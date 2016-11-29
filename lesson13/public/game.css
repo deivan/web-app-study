@@ -1,0 +1,222 @@
+body {
+    padding: 0;
+    margin: 0;
+    color: #000;
+    font-size: 15px;
+}
+
+.header {
+  background-color: #504f4f;
+  border-top: 3px solid #494949;
+  border-bottom: 2px solid white;
+  box-shadow: 0px 2px 14px 3px #d1d1d1;
+  width: 100%;
+  margin: auto;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+}
+.header__logo {
+  margin: 20px 0 0 57px;
+}
+
+.user-nav__item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+.user-nav--header {
+  margin: 25px 25px 0 0;
+}
+
+.wrap {
+  width: 100%;
+  min-height: calc(100% - 77px);
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+
+.sidebar {
+  background: url("../images/sidebar-bg.png") repeat;
+  width: 220px;
+  min-width: 220px;
+  padding-top: 45px;
+  box-sizing: border-box;
+}
+
+.nav {
+  width: 100%;
+}
+.nav__tab {
+  padding: 9px 0 0 50px;
+  display: block;
+  width: 100%;
+  height: 39px;
+  text-decoration: none;
+  text-align: right;
+  font-size: 15px;
+  color: #000;
+  border-bottom: 1px solid #968f81;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.nav__tab:nth-child(1) {
+  border-top: 1px solid #968f81;
+}
+.nav__tab:hover {
+  -webkit-animation: bgHover  .2s  linear forwards;
+  animation: bgHover  .2s linear forwards;
+}
+.nav__tab--active {
+  background: rgba(208, 201, 187, 0.7);
+}
+.nav__tab--active:hover {
+  animation-name: none;
+  -webkit-animation-name: none;
+  background: rgba(208, 201, 187, 0.7) !important;
+  animation-name: none;
+}
+
+@keyframes bgHover {
+  to {
+    background: rgba(249, 247, 242, 0.6);
+  }
+}
+.main {
+  padding: 0 30px 10px 40px;
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+.main h1, .main h3 {
+  float:left;
+  width: 100%;
+  border-bottom: 1px dotted #888;
+}
+
+.profile__item {
+  float: left;
+  width:70%;
+  height: 30px;
+  line-height: 30px;
+  color: #888;
+}
+
+.profile__item label {
+  float:left;
+  width: 100px;
+  text-align: right;
+}
+
+.profile__item span {
+  float:left;
+  color: #000;
+  margin-left:10px;
+}
+
+.profile__item span.error {
+  color: #f00;
+}
+
+.profile__item span.passed {
+  color: #0f0;
+}
+
+.profile__avatar {
+  float: right;
+  width: 25%;
+  min-width: 150px;
+}
+
+.profile__avatar img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.messages__new {
+  margin-top:60px;
+  width:100%;
+  height: 100px;
+  background-color: #eee;
+}
+
+.messages__new select {
+  float: left;
+  margin-left: 10px;
+  width: 100px;
+  height: 25px;
+  border:1px solid #bbb;
+  background-color: #fff;
+}
+
+.messages__new textarea {
+  float: left;
+  margin-left: 10px;
+  width: 300px;
+  height: 50px;
+  border:1px solid #bbb;
+  background-color: #fff;
+}
+
+.messages__new button {
+  float:left;
+  margin-left: 10px;
+  padding: 5px 15px;
+}
+
+.messages__feed {
+  margin-top:60px;
+  width:100%;
+  background-color: #eee;
+}
+
+.messages__item {
+  width:100%;
+  padding: 10px;
+  border-bottom: 1px dotted #777;
+}
+
+.messages__header {
+  width:100%;
+  height: 40px;
+  line-height: 40px;
+}
+
+.messages__header--date {
+  float: left;
+  width:100px;
+  height:100%;
+  padding: 0 10px;
+  font-size: 12px;
+  font-style:italic;
+  border-right: 1px solid #ccc;
+}
+
+.messages__header--name {
+  float: left;
+  width:160px;
+  height:100%;
+  padding: 0 20px;
+  border-right: 1px solid #ccc;
+}
+
+.messages__header--text {
+  float: left;
+  width:350px;
+  height:100%;
+  padding: 0 20px;
+  border-right: 1px solid #ccc;
+  overflow:hidden;
+}
+
+.messages__header a {
+  margin-left: 40px;
+  margin-top:10px;
+  text-decoration:none;
+}
