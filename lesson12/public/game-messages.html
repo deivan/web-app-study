@@ -8,7 +8,7 @@
 <div class="messages__feed">
   <div class="messages__item" ng-repeat="item in conversations">
     <div class="messages__header">
-      <div class="messages__header--date">{{item.date}}</div>
+      <div class="messages__header--date">{{item.authors[0]}}</div>
       <div class="messages__header--name">{{item.messages[0].date}}</div>
       <div class="messages__header--text">{{item.messages[0].text}}</div>
       <button>Show</button>      
