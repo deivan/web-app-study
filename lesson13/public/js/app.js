@@ -36,7 +36,9 @@ angular.module('app',['ngRoute'])
         messages: [
           { date: '2016-11-30 10:15', author: 'Adam', text: 'Hello, Eve, it is Adam.Do you wanna an apple?'},
           { date: '2016-11-30 12:15', author: 'Eve', text: 'mmmmm... are you about macbook?'},
-          { date: '2016-11-30 13:10', author: 'Adam', text: 'stupid blondy i am about meet for you!!!'}
+          { date: '2016-11-30 13:10', author: 'Adam', text: 'stupid blondy i am about meet for you!!!'},
+          { date: '2016-11-30 13:20', author: 'Eve', text: 'I\'m not a blondy, i am brown'},
+          { date: '2016-11-30 13:30', author: 'Adam', text: 'OMG'}
         ]
       }
     ];
@@ -98,5 +100,14 @@ angular.module('app',['ngRoute'])
         console.log('conv',$scope.conversation)
       }
     }
+    
+    $scope.sendMessage = function () {
+      $scope.conversation.messages.push({
+        date: '2016-12-03 11:45',
+        author: $rootScope.me,
+        text: $scope.message
+      });
+      $scope.message = '';
+    };
       
   });

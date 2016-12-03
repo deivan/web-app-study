@@ -1,7 +1,7 @@
 <h1>{{getMate(conversation.authors)}}</h1>
 <div class="messages__new">
-  <textarea placeholder="Type some text here..."></textarea>
-  <button>New message</button>
+  <textarea placeholder="Type some text here..." ng-model="message"></textarea>
+  <button ng-click="sendMessage()">New message</button>
 </div> 
 <div class="messages__feed">
   <div class="messages__item" ng-repeat="item in conversation.messages">
