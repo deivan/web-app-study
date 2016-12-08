@@ -1,0 +1,41 @@
+angular.module('app')
+  .service('appService', function ($http, $q) {
+    return ({
+       getUser: getUser,
+       updateProfile: updateProfile
+    });
+
+    function getUser () {
+       var request = $http({
+           method: 'get',
+           url: '/api/user',
+           data: {}
+       });
+       return (request.then( handleSuccess, handleError ));
+    }
+    
+    function updateProfile (data) {
+      var request = $http({
+        method: 'POST',
+        url: '/api/user',
+        data: data
+      });
+      return (request.then( handleSuccess, handleError ));
+    }
+
+    function handleSuccess (response) {
+         console.log('request result: ', response);
+         return (response.data);
+    }
+
+    function handleError (response) {
+       console.log('ERROR result: ', response);
+       if (
+           ! angular.isObject( response.data ) ||
+           ! response.data
+           ) {
+           return ($q.reject({ detail: response.status + ': ' + response.statusText }));
+       }
+       return ($q.reject(response.data));
+    }
+  });
