@@ -33,7 +33,18 @@ var schemaUser = new Schema({
   }
 });
 
+var schemaConversation = new Schema({
+  authors: {
+    type: Array,
+    required: true
+  },
+  messages: {
+    type: Array
+  }
+});
+
 var User = mongoose.model('User', schemaUser);
+var Conv = mongoose.model('Conv', schemaConversation);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://student:student@ds061807.mlab.com:61807/mongo-deivan');
@@ -193,6 +204,63 @@ app.get('/api/users', function (req, res) {
         res.json({error: true, status: "Can't get userlist"});
       }
     }); 
+  }
+});
+
+app.get('/api/conversations', function (req, res) {
+  if (req.session.user) {
+    Conv.find({ authors: { $in: [ req.session.user.username ] } }, 
+    function(err, conversations) {
+      if (!err) {
+        res.json({error: false, status: 'Got conversations', data: conversations});
+      } else {
+        res.json({error: true, status: "Can't get userlist"});
+      }
+    }); 
+  }
+});
+
+app.post('/api/conversations', function (req, res) {
+  var convUser = req.body.username, thatUser;
+  if (req.session.user) {
+    thatUser = req.session.user.username;
+    Conv.find({ authors: { $in: [ convUser, thatUser ] } }, 
+    function(err, conversations) {
+      if (!err) {
+        res.json({error: true, status: "Conversation with user " + convUser + " is exists"});
+      } else {
+        var conv = new Conv({
+          authors:[thatUser, convUser],
+          messages: []
+        });
+        conv.save();
+        res.json({error: false, status: "Conversation with user " + convUser + " was started", data: conv});
+      }
+    }); 
+  }
+});
+
+app.get('/api/conversation', function (req, res) {
+  var convUser = req.body.username, thatUser;
+  if (req.session.user) {
+    thatUser = req.session.user.username;
+    Conv.find({ authors: { $in: [ convUser, thatUser ] } }, 
+    function(err, conversation) {
+      if (!err) {
+        res.json({error: false, status: 'Got conversation with ' + convUser, data: conversation});
+      } else {
+        res.json({error: true, status: "Can't get conversation with " + convUser});
+      }
+    }); 
+  }
+});
+
+app.post('/api/conversation', function (req, res) {
+  var convUser = req.body.username, 
+      text = req.body.text, thatUser;
+  if (req.session.user) {
+    thatUser = req.session.user.username;
+
   }
 });
 
