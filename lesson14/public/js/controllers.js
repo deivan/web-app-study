@@ -1,7 +1,12 @@
 angular.module('app')
-  .controller('mainPage', function ($scope, $rootScope) {
-    $rootScope.profile = {};
-    $rootScope.me = 'Adam'; //$rootScope.profile.username;
+  .controller('mainPage', function ($scope, $rootScope,appService) {
+    appService.getUser().then(function (response) {
+      $rootScope.profile = response;
+      $rootScope.me = $rootScope.profile.username;
+    }, function (response) {
+      console.log('Error: ',response);
+    });
+    
     $rootScope.conversations = [
       {
         _id: 1,
@@ -32,13 +37,7 @@ angular.module('app')
     };
   })
   
-  .controller('ProfilePage', function ($scope, $rootScope, $http, appService) {
-    
-    appService.getUser().then(function (response) {
-        $rootScope.profile = response;
-    }, function (response) {
-      console.log('Error: ',response);
-    });
+  .controller('ProfilePage', function ($scope, $rootScope, appService) {
     
     $scope.message = '';
     
@@ -55,13 +54,10 @@ angular.module('app')
     };
   })
   
-  .controller('MessagesPage', function ($scope, $rootScope) {
-    
-    $scope.users = [
-      {username:'Adam'},
-      {username:'Eve'},
-      {username:'Snake'}
-    ];
+  .controller('MessagesPage', function ($scope, $rootScope, appService) {
+    appService.getUsers().then(function (data) {
+      $scope.users = data.data;
+    });
     
   })
   

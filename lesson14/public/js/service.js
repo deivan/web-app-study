@@ -2,7 +2,9 @@ angular.module('app')
   .service('appService', function ($http, $q) {
     return ({
        getUser: getUser,
-       updateProfile: updateProfile
+       updateProfile: updateProfile,
+       
+       getUsers: getUsers
     });
 
     function getUser () {
@@ -16,13 +18,22 @@ angular.module('app')
     
     function updateProfile (data) {
       var request = $http({
-        method: 'POST',
+        method: 'post',
         url: '/api/user',
         data: data
       });
       return (request.then( handleSuccess, handleError ));
     }
 
+    function getUsers () {
+      var request = $http({
+        method: 'get',
+        url: '/api/users',
+        data: {}
+      });
+      return (request.then( handleSuccess, handleError ));
+    }
+    
     function handleSuccess (response) {
          console.log('request result: ', response);
          return (response.data);

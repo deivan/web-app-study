@@ -180,5 +180,21 @@ app.post('/api/user', function (req, res) {
   }
 });
 
+app.get('/api/users', function (req, res) {
+  if (req.session.user) {
+    User.find({}, 
+    function(err, users) {
+      var names = [];
+      if (!err) {
+        for (var i = 0; i < users.length; i++)
+          names.push({username: users[i].username});
+        res.json({error: false, status: 'Got usernames', data: names});
+      } else {
+        res.json({error: true, status: "Can't get userlist"});
+      }
+    }); 
+  }
+});
+
 app.listen(port);
 console.log('Web-app was started at port ' + port);
