@@ -224,32 +224,42 @@ app.post('/api/conversations', function (req, res) {
   var convUser = req.body.username, message = req.body.message, thatUser;
   if (req.session.user) {
     thatUser = req.session.user.username;
-    Conv.find({ authors: { $in: [ convUser, thatUser ] } }, 
+    Conv.find({ authors: { $all: [ convUser, thatUser ] } }, 
     function(err, conversations) {
       if (!err) {
-        res.json({error: true, status: "Conversation with user " + convUser + " is exists"});
+        if (conversations.length === 0) {
+          var conv = new Conv({
+            authors:[thatUser, convUser],
+            messages: [{date: getNewDateString(), author: thatUser, text: message}]
+          });
+          conv.save();
+          res.json({error: false, status: "Conversation with user " + convUser + " was started", data: conv});          
+        } else {
+          Conv.findOneAndUpdate({authors: { $all: [ convUser, thatUser ]}}, {
+            $push : {messages: {date: getNewDateString(), author: thatUser, text: message} }
+          }, { safe: true, upsert: true},
+          function (err, model) {
+              console.log('error', err);
+          });
+          res.json({error: false, status: "Conversation with user " + convUser + " is exists", data: conversations[0]});          
+        }
       } else {
-        var conv = new Conv({
-          authors:[thatUser, convUser],
-          messages: [{date: new Date(), author: thatUser, text: message}]
-        });
-        conv.save();
-        res.json({error: false, status: "Conversation with user " + convUser + " was started", data: conv});
+        res.json({error: true, status: "Conversation with user " + convUser + " failed"});
       }
     }); 
   }
 });
 
-app.get('/api/conversation', function (req, res) {
-  var convUser = req.body.username, thatUser;
+app.get('/api/conversation/:id', function (req, res) {
+  var _id = req.params.id, thatUser;
   if (req.session.user) {
     thatUser = req.session.user.username;
-    Conv.find({ authors: { $in: [ convUser, thatUser ] } }, 
+    Conv.findOne({ _id: _id }, 
     function(err, conversation) {
       if (!err) {
-        res.json({error: false, status: 'Got conversation with ' + convUser, data: conversation});
+        res.json({error: false, status: 'Got conversation with ' + _id, data: conversation});
       } else {
-        res.json({error: true, status: "Can't get conversation with " + convUser});
+        res.json({error: true, status: "Can't get conversation for " + _id});
       }
     }); 
   }
@@ -266,3 +276,9 @@ app.post('/api/conversation', function (req, res) {
 
 app.listen(port);
 console.log('Web-app was started at port ' + port);
+
+// helpers
+function getNewDateString () {
+  var t = new Date();
+  return t.getFullYear() + '-' + (1 + t.getMonth()) + '-' + t.getDate() + ' ' + t.getHours() + ':' + t.getMinutes();
+}
