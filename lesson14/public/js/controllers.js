@@ -7,27 +7,27 @@ angular.module('app')
       console.log('Error: ',response);
     });
     
-    $rootScope.conversations = [
-      {
-        _id: 1,
-        authors: ['Snake', 'Adam'],
-        messages: [
-          { date: '2016-11-29 09:10', author: 'Adam', text: 'Hello, how R U?'},
-          { date: '2016-11-29 09:12', author: 'Snake', text: 'tnx im 5n'}
-        ]
-      },
-      {
-        _id: 2,
-        authors: ['Eve', 'Adam'],
-        messages: [
-          { date: '2016-11-30 10:15', author: 'Adam', text: 'Hello, Eve, it is Adam.Do you wanna an apple?'},
-          { date: '2016-11-30 12:15', author: 'Eve', text: 'mmmmm... are you about macbook?'},
-          { date: '2016-11-30 13:10', author: 'Adam', text: 'stupid blondy i am about meet for you!!!'},
-          { date: '2016-11-30 13:20', author: 'Eve', text: 'I\'m not a blondy, i am brown'},
-          { date: '2016-11-30 13:30', author: 'Adam', text: 'OMG'}
-        ]
-      }
-    ];
+//    $rootScope.conversations = [
+//      {
+//        _id: 1,
+//        authors: ['Snake', 'Adam'],
+//        messages: [
+//          { date: '2016-11-29 09:10', author: 'Adam', text: 'Hello, how R U?'},
+//          { date: '2016-11-29 09:12', author: 'Snake', text: 'tnx im 5n'}
+//        ]
+//      },
+//      {
+//        _id: 2,
+//        authors: ['Eve', 'Adam'],
+//        messages: [
+//          { date: '2016-11-30 10:15', author: 'Adam', text: 'Hello, Eve, it is Adam.Do you wanna an apple?'},
+//          { date: '2016-11-30 12:15', author: 'Eve', text: 'mmmmm... are you about macbook?'},
+//          { date: '2016-11-30 13:10', author: 'Adam', text: 'stupid blondy i am about meet for you!!!'},
+//          { date: '2016-11-30 13:20', author: 'Eve', text: 'I\'m not a blondy, i am brown'},
+//          { date: '2016-11-30 13:30', author: 'Adam', text: 'OMG'}
+//        ]
+//      }
+//    ];
     $rootScope.getMate = function (authors) {
       if (authors[0] == $rootScope.me) {
         return authors[1];
@@ -55,10 +55,18 @@ angular.module('app')
   })
   
   .controller('MessagesPage', function ($scope, $rootScope, appService) {
+    $scope.thisUser = '';
     appService.getUsers().then(function (data) {
       $scope.users = data.data;
     });
+    appService.getConversations().then(function (data){
+      $rootScope.conversations = data.data;
+    });
     
+    $scope.startConversation = function () {
+      if ($scope.thisUser == '') return;
+      console.log('username:', $scope.thisUser);
+    };
   })
   
   .controller('MessageViewPage', function ($scope, $rootScope, $routeParams) {

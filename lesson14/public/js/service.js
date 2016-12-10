@@ -4,7 +4,9 @@ angular.module('app')
        getUser: getUser,
        updateProfile: updateProfile,
        
-       getUsers: getUsers
+       getUsers: getUsers,
+       
+       getConversations: getConversations
     });
 
     function getUser () {
@@ -29,6 +31,15 @@ angular.module('app')
       var request = $http({
         method: 'get',
         url: '/api/users',
+        data: {}
+      });
+      return (request.then( handleSuccess, handleError ));
+    }
+    
+    function getConversations () {
+      var request = $http({
+        method: 'get',
+        url: '/api/conversations',
         data: {}
       });
       return (request.then( handleSuccess, handleError ));
