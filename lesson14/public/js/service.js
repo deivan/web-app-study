@@ -6,7 +6,8 @@ angular.module('app')
        
        getUsers: getUsers,
        
-       getConversations: getConversations
+       getConversations: getConversations,
+       startConversation: startConversation
     });
 
     function getUser () {
@@ -43,6 +44,15 @@ angular.module('app')
         data: {}
       });
       return (request.then( handleSuccess, handleError ));
+    }
+    
+    function startConversation (data) {
+      var request = $http({
+        method: 'pos',
+        url: '/api/conversations',
+        data: { data }
+      });
+      return (request.then( handleSuccess, handleError ));      
     }
     
     function handleSuccess (response) {

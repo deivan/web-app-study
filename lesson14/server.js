@@ -221,7 +221,7 @@ app.get('/api/conversations', function (req, res) {
 });
 
 app.post('/api/conversations', function (req, res) {
-  var convUser = req.body.username, thatUser;
+  var convUser = req.body.username, message = req.body.message, thatUser;
   if (req.session.user) {
     thatUser = req.session.user.username;
     Conv.find({ authors: { $in: [ convUser, thatUser ] } }, 
@@ -231,7 +231,7 @@ app.post('/api/conversations', function (req, res) {
       } else {
         var conv = new Conv({
           authors:[thatUser, convUser],
-          messages: []
+          messages: [{date: new Date(), author: thatUser, text: message}]
         });
         conv.save();
         res.json({error: false, status: "Conversation with user " + convUser + " was started", data: conv});

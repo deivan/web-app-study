@@ -56,6 +56,7 @@ angular.module('app')
   
   .controller('MessagesPage', function ($scope, $rootScope, appService) {
     $scope.thisUser = '';
+    $scope.firstMessage = '';
     appService.getUsers().then(function (data) {
       $scope.users = data.data;
     });
@@ -64,8 +65,12 @@ angular.module('app')
     });
     
     $scope.startConversation = function () {
-      if ($scope.thisUser == '') return;
-      console.log('username:', $scope.thisUser);
+      if ($scope.thisUser == '' || $scope.firstMessage == '') return;
+      console.log('username:', $scope.thisUser, $scope.firstMessage);
+      appService.startConversation({
+        username: $scope.thisUser,
+        message: $scope.firstMessage
+      });
     };
   })
   

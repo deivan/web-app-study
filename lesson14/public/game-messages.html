@@ -1,7 +1,7 @@
 <h1>New message</h1>
 <div class="messages__new">
   <select ng-options="user.username for user in users" ng-model="thisUser"></select>
-  <textarea placeholder="Type some text here..."></textarea>
+  <textarea placeholder="Type some text here..." ng-model="firstMessage"></textarea>
   <button ng-click="startConversation()">Start conversation</button>
 </div>
 <h1>Previous conversations</h1>
