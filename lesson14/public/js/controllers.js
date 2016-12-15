@@ -69,8 +69,14 @@ angular.module('app')
     });
 
     $scope.sendMessage = function () {
-
-      $scope.message = '';
+      appService.sendMessage(id, $scope.message).then(function (data) {
+        if (!data.error){
+          $scope.conversation.messages.push({ date: '', author: $rootScope.me, text: $scope.message });
+          $scope.message = '';
+        } else {
+          
+        }
+      });
     };
       
   });

@@ -8,7 +8,8 @@ angular.module('app')
        
        getConversations: getConversations,
        startConversation: startConversation,
-       getConversation: getConversation
+       getConversation: getConversation,
+       sendMessage: sendMessage
     });
 
     function getUser () {
@@ -65,6 +66,16 @@ angular.module('app')
       return (request.then( handleSuccess, handleError ));
     }
     
+    function sendMessage(id, text) {
+      var request = $http({
+        method: 'post',
+        url: '/api/conversation/' + id,
+        data: {text: text}
+      });
+      return (request.then( handleSuccess, handleError ));      
+    }
+    
+    // response handlers
     function handleSuccess (response) {
          console.log('request result: ', response);
          return (response.data);

@@ -188,6 +188,8 @@ app.post('/api/user', function (req, res) {
         res.json({error: true, status: "Can't update profile data"});
       }
     }); 
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
   }
 });
 
@@ -204,6 +206,8 @@ app.get('/api/users', function (req, res) {
         res.json({error: true, status: "Can't get userlist"});
       }
     }); 
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
   }
 });
 
@@ -217,6 +221,8 @@ app.get('/api/conversations', function (req, res) {
         res.json({error: true, status: "Can't get userlist"});
       }
     }); 
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
   }
 });
 
@@ -247,6 +253,8 @@ app.post('/api/conversations', function (req, res) {
         res.json({error: true, status: "Conversation with user " + convUser + " failed"});
       }
     }); 
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
   }
 });
 
@@ -262,15 +270,30 @@ app.get('/api/conversation/:id', function (req, res) {
         res.json({error: true, status: "Can't get conversation for " + _id});
       }
     }); 
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
   }
 });
 
-app.post('/api/conversation', function (req, res) {
-  var convUser = req.body.username, 
-      text = req.body.text, thatUser;
+app.post('/api/conversation/:id', function (req, res) {
+  var _id = req.params.id, 
+      text = req.body.text, 
+      thatUser;
   if (req.session.user) {
     thatUser = req.session.user.username;
-
+      Conv.findOneAndUpdate({ _id: _id }, {
+        $push : {messages: {date: getNewDateString(), author: thatUser, text: text} }
+      }, { safe: true, upsert: true},
+      function (err, result) {
+        if (err) {
+          console.log('error', err);
+          res.json({error: true, status: "Error when adding message at conversation " + _id, data: err });            
+        } else {
+          res.json({error: false, status: "Added message to conversation " + _id, data: result });            
+        }
+      });
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
   }
 });
 
