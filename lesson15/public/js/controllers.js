@@ -80,6 +80,22 @@ angular.module('app')
     };    
   })
   
-  .controller('MinigamesPage', function ($scope, $rootScope, appService) {
+  .controller('MinigamesPage', function ($scope) {
     
+  })
+  
+  .controller('MinigamesLSPage', function ($scope, $rootScope, appService) {
+    $scope.stones = {};
+    
+    $scope.setStone = function (n) {
+      if ($scope.stones[n] === undefined) {
+        $scope.stones[n] = true;
+      } else {
+        delete $scope.stones[n];
+      }
+    };
+    
+    $scope.playLuckyStones = function () {
+      console.log('stones',$scope.stones);
+    };
   });

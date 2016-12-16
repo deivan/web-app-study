@@ -1,0 +1,21 @@
+<h1>Lucky Stones</h1>
+<div class="minigames__ls">
+  <div class="minigames__ls--title"></div>
+  <div class="minigames__ls--content">
+    <div class="minigames__ls--line">
+      <div class="minigames__ls--stone" ng-click="setStone('1')" ng-class="{'selected': stones['1']}"></div>
+      <div class="minigames__ls--stone" ng-click="setStone('2')" ng-class="{'selected': stones['2']}"></div>
+      <div class="minigames__ls--stone" ng-click="setStone('3')" ng-class="{'selected': stones['3']}"></div>
+    </div>
+    <div class="minigames__ls--line">
+      <div class="minigames__ls--stone" ng-click="setStone('4')" ng-class="{'selected': stones['4']}"></div>
+      <div class="minigames__ls--stone" ng-click="setStone('5')" ng-class="{'selected': stones['5']}"></div>
+      <div class="minigames__ls--stone" ng-click="setStone('6')" ng-class="{'selected': stones['6']}"></div>
+      <div class="minigames__ls--stone" ng-click="setStone('7')" ng-class="{'selected': stones['7']}"></div>
+    </div>
+    <div class="minigames__ls--line">
+      <a class="minigames__ls--play" href ng-click="playLuckyStones()">Let's Play!</a>
+      <a class="minigames__ls--cancel" href="#/mini">Cancel</a>
+    </div>
+  </div>
+</div>
