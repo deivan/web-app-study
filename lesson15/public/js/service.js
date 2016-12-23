@@ -9,7 +9,9 @@ angular.module('app')
        getConversations: getConversations,
        startConversation: startConversation,
        getConversation: getConversation,
-       sendMessage: sendMessage
+       sendMessage: sendMessage,
+       
+       playLuckyStones: playLuckyStones
     });
 
     function getUser () {
@@ -73,6 +75,10 @@ angular.module('app')
         data: {text: text}
       });
       return (request.then( handleSuccess, handleError ));      
+    }
+    
+    function playLuckyStones (data) {
+      return { 1:0, 2:0, 7:1 };
     }
     
     // response handlers

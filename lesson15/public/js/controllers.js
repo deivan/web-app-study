@@ -1,5 +1,6 @@
 angular.module('app')
   .controller('mainPage', function ($scope, $rootScope,appService) {
+    $rootScope.isShowLoading = false;
     appService.getUser().then(function (response) {
       $rootScope.profile = response;
       $rootScope.me = $rootScope.profile.username;
@@ -85,17 +86,40 @@ angular.module('app')
   })
   
   .controller('MinigamesLSPage', function ($scope, $rootScope, appService) {
-    $scope.stones = {};
     
     $scope.setStone = function (n) {
       if ($scope.stones[n] === undefined) {
-        $scope.stones[n] = true;
+        if ($scope.stones.selected < 3) {
+          $scope.stones[n] = true;
+          $scope.stones.selected++
+        }
       } else {
         delete $scope.stones[n];
+        $scope.stones.selected--;
       }
     };
     
     $scope.playLuckyStones = function () {
-      console.log('stones',$scope.stones);
+      var obj;
+      if ($scope.stones.selected === 3) {
+        obj = appService.playLuckyStones($scope.stones);
+        for (var key in obj) {
+          if (obj[key] === 0) {
+            $scope.wrongs[key] = 1;
+          } else {
+            $scope.wins[key] = 1;
+          }
+        }
+      }
     };
+    
+    $scope.clearGame = function () {
+      $scope.stones = {
+        selected: 0
+      };
+      $scope.wrongs = [0,0,0,0,0,0,0,0];
+      $scope.wins = [0,0,0,0,0,0,0,0];
+    };
+    
+    $scope.clearGame();
   });
