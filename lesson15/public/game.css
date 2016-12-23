@@ -5,6 +5,13 @@ body {
     font-size: 15px;
 }
 
+h2 {
+  margin:20px 0 10px;
+  padding: 20px 0 10px 25px;
+  color:#444;
+  background-color: #eee;
+  border-radius:10px;
+}
 .header {
   background-color: #504f4f;
   border-top: 3px solid #494949;
@@ -222,21 +229,113 @@ body {
 }
 
 .minigames__intro {
-  
+  width: 100%;
+  text-indent: 50px;
+  font-size:16px;
+}
+
+.minigames__intro::first-letter {
+  font-size: 32px;
+  font-weight:900;
+  color: #800;
 }
 
 .minigames__block {
-  
+  width:inherit;
+  height: 100px;
+  border: 1px dotted #444;
 }
 
-.minigames__block img {
-  
+.minigames__block .img {
+  float: left;
+  height:90px;
+  width:90px;
+  margin-top: 5px;
+  margin-left: 25px;
+}
+
+.minigames__block .img.coin {
+  background-image: url("../images/ancient_coin.jpg");
+  background-size: cover;
+}
+
+.minigames__block .img.oggy {
+  background-image: url("../images/oggy_and_cockroaches.jpg");
+  background-size: cover;
 }
 
 .minigames__block p {
-  
+  float: left;
+  margin-top: 5px;
+  margin-left: 90px;
+  height:90px;
+  width:350px;
+  color: #888;
 }
 
 .minigames__block a {
-  
+  float: right;
+  margin-right: 25px;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  text-align: center;
+  text-decoration: none;
+  color: steelblue;
+}
+
+.minigames__block a:hover {
+  font-weight: 900;
+}
+
+.minigames__ls {
+  position: relative;
+  margin-top: 70px;
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
+  background-color: #eee;
+}
+
+.minigames__ls--title {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  margin: 20px auto;
+  font-size: 24px;
+  color: #009;
+  text-align: center;
+}
+
+.minigames__ls--line {
+  width: 100%;
+  height: 100px;
+  margin: 25px auto;
+  text-align: center;
+}
+
+.minigames__ls--stone {
+  display: inline-block;
+  width:100px;
+  height: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius:10px;
+  background-image: url("../images/stone_back.jpg");
+  cursor: pointer;
+}
+
+.minigames__ls--stone:hover {
+  outline: 5px solid #fc0;
+}
+
+.minigames__ls--stone.selected {
+  border:3px solid #00e;
+}
+
+.minigames__ls--button {
+  text-decoration: none;
+  color: steelblue;
+  font-size: 18px;
+  padding: 5px 20px;
 }

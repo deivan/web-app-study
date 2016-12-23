@@ -1,6 +1,8 @@
 <h1>Lucky Stones</h1>
 <div class="minigames__ls">
-  <div class="minigames__ls--title"></div>
+  <div class="minigames__ls--title">
+    Check your luck: select 3 stones below
+  </div>
   <div class="minigames__ls--content">
     <div class="minigames__ls--line">
       <div class="minigames__ls--stone" ng-click="setStone('1')" ng-class="{'selected': stones['1']}"></div>
@@ -14,8 +16,8 @@
       <div class="minigames__ls--stone" ng-click="setStone('7')" ng-class="{'selected': stones['7']}"></div>
     </div>
     <div class="minigames__ls--line">
-      <a class="minigames__ls--play" href ng-click="playLuckyStones()">Let's Play!</a>
-      <a class="minigames__ls--cancel" href="#/mini">Cancel</a>
+      <a class="minigames__ls--button" href ng-click="playLuckyStones()">Let's Play!</a>
+      <a class="minigames__ls--button" href="#/mini">Cancel</a>
     </div>
   </div>
 </div>
