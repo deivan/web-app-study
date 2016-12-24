@@ -297,6 +297,14 @@ app.post('/api/conversation/:id', function (req, res) {
   }
 });
 
+app.post('/api/luckystones', function (req, res) {
+  if (req.session.user) {
+    res.json({ error: false, status: "Game started" });
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
+  }
+});
+
 app.listen(port);
 console.log('Web-app was started at port ' + port);
 

@@ -74,7 +74,7 @@ h2 {
 
 
 .sidebar {
-  background: url("../images/sidebar-bg.png") repeat;
+/*  background: url("../images/sidebar-bg.png") repeat;*/
   width: 220px;
   min-width: 220px;
   padding-top: 45px;

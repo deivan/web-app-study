@@ -1,5 +1,5 @@
 angular.module('app')
-  .service('appService', function ($http, $q) {
+  .service('appService', function ($http, $q, $rootScope) {
     return ({
        getUser: getUser,
        updateProfile: updateProfile,
@@ -15,6 +15,7 @@ angular.module('app')
     });
 
     function getUser () {
+      $rootScope.isShowLoading = true;
        var request = $http({
            method: 'get',
            url: '/api/user',
@@ -24,6 +25,7 @@ angular.module('app')
     }
     
     function updateProfile (data) {
+      $rootScope.isShowLoading = true;
       var request = $http({
         method: 'post',
         url: '/api/user',
@@ -33,6 +35,7 @@ angular.module('app')
     }
 
     function getUsers () {
+      $rootScope.isShowLoading = true;
       var request = $http({
         method: 'get',
         url: '/api/users',
@@ -42,6 +45,7 @@ angular.module('app')
     }
     
     function getConversations () {
+      $rootScope.isShowLoading = true;
       var request = $http({
         method: 'get',
         url: '/api/conversations',
@@ -51,6 +55,7 @@ angular.module('app')
     }
     
     function startConversation (data) {
+      $rootScope.isShowLoading = true;
       var request = $http({
         method: 'post',
         url: '/api/conversations',
@@ -60,6 +65,7 @@ angular.module('app')
     }
     
     function getConversation (id) {
+      $rootScope.isShowLoading = true;
       var request = $http({
         method: 'get',
         url: '/api/conversation/' + id,
@@ -69,6 +75,7 @@ angular.module('app')
     }
     
     function sendMessage(id, text) {
+      $rootScope.isShowLoading = true;
       var request = $http({
         method: 'post',
         url: '/api/conversation/' + id,
@@ -78,16 +85,24 @@ angular.module('app')
     }
     
     function playLuckyStones (data) {
-      return { 1:0, 2:0, 7:1 };
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'post',
+        url: '/api/luckystones/',
+        data: data
+      });
+      return (request.then( handleSuccess, handleError ));  
     }
     
     // response handlers
     function handleSuccess (response) {
+      $rootScope.isShowLoading = false;
          console.log('request result: ', response);
          return (response.data);
     }
 
     function handleError (response) {
+      $rootScope.isShowLoading = false;
        console.log('ERROR result: ', response);
        if (
            ! angular.isObject( response.data ) ||
