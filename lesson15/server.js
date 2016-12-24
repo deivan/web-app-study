@@ -299,7 +299,8 @@ app.post('/api/conversation/:id', function (req, res) {
 
 app.post('/api/luckystones', function (req, res) {
   if (req.session.user) {
-    res.json({ error: false, status: "Game started" });
+    var stones = req.body.stones, results = getLuckyStones();
+    res.json({ error: false, status: "Game started", data:{} });
   } else {
     res.sendFile(__dirname + '/public/error.html');
   }
@@ -312,4 +313,16 @@ console.log('Web-app was started at port ' + port);
 function getNewDateString () {
   var t = new Date();
   return t.getFullYear() + '-' + (1 + t.getMonth()) + '-' + t.getDate() + ' ' + t.getHours() + ':' + t.getMinutes();
+}
+
+function getLuckyStones () {
+  var a1, a2, repeat = true;
+  while (repeat) {
+    a1 = Math.round(Math.random()*6) +1;
+    a2 = Math.round(Math.random()*6) +1;
+    if (a1 !== a2) repeat = false;
+  }
+  return [a1, a2];
+          
+  
 }

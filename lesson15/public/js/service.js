@@ -89,7 +89,7 @@ angular.module('app')
       var request = $http({
         method: 'post',
         url: '/api/luckystones/',
-        data: data
+        data: { stones: data }
       });
       return (request.then( handleSuccess, handleError ));  
     }
