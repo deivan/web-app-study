@@ -299,8 +299,18 @@ app.post('/api/conversation/:id', function (req, res) {
 
 app.post('/api/luckystones', function (req, res) {
   if (req.session.user) {
-    var stones = req.body.stones, results = getLuckyStones();
-    res.json({ error: false, status: "Game started", data:{} });
+    var stones = req.body.stones, data = getLuckyStones(), results = {};
+    console.log('Lucky Stones random numbers: ', data)
+    for (var key in stones) {
+      if (key !== 'selected') {
+        if (key == data[0] || key == data[1] ) {
+          results[key] = 1;
+        } else {
+          results[key] = 0;
+        }
+      }
+    }
+    res.json({ error: false, status: "Game started", data: results });
   } else {
     res.sendFile(__dirname + '/public/error.html');
   }
@@ -323,6 +333,4 @@ function getLuckyStones () {
     if (a1 !== a2) repeat = false;
   }
   return [a1, a2];
-          
-  
 }

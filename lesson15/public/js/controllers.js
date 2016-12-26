@@ -87,6 +87,8 @@ angular.module('app')
   
   .controller('MinigamesLSPage', function ($scope, $rootScope, appService) {
     
+    $scope.playDisabled = false;
+    
     $scope.setStone = function (n) {
       if ($scope.stones[n] === undefined) {
         if ($scope.stones.selected < 3) {
@@ -100,16 +102,17 @@ angular.module('app')
     };
     
     $scope.playLuckyStones = function () {
-      var obj;
       if ($scope.stones.selected === 3) {
-        obj = appService.playLuckyStones($scope.stones);
-        for (var key in obj) {
-          if (obj[key] === 0) {
-            $scope.wrongs[key] = 1;
-          } else {
-            $scope.wins[key] = 1;
+        appService.playLuckyStones($scope.stones).then(function (data) {
+          for (var key in data.data) {
+            if (data.data[key] === 0) {
+              $scope.wrongs[key] = 1;
+            } else {
+              $scope.wins[key] = 1;
+            }
           }
-        }
+          $scope.playDisabled = true;
+        });
       }
     };
     
@@ -119,6 +122,7 @@ angular.module('app')
       };
       $scope.wrongs = [0,0,0,0,0,0,0,0];
       $scope.wins = [0,0,0,0,0,0,0,0];
+      $scope.playDisabled = false;
     };
     
     $scope.clearGame();

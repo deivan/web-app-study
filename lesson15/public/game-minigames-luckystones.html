@@ -16,7 +16,7 @@
       <div class="minigames__ls--stone" ng-click="setStone('7')" ng-class="{'selected': stones['7'], 'nowin':wrongs[7], 'win':wins[7]}"></div>
     </div>
     <div class="minigames__ls--line">
-      <a class="minigames__ls--button" href ng-click="playLuckyStones()">Let's Play!</a>
+      <a class="minigames__ls--button" href ng-hide="playDisabled" ng-click="playLuckyStones()">Let's Play!</a>
       <a class="minigames__ls--button" href ng-click="clearGame()">Reset</a>
     </div>
   </div>
