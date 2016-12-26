@@ -299,16 +299,26 @@ app.post('/api/conversation/:id', function (req, res) {
 
 app.post('/api/luckystones', function (req, res) {
   if (req.session.user) {
-    var stones = req.body.stones, data = getLuckyStones(), results = {};
+    var stones = req.body.stones, data = getLuckyStones(), results = {}, cash = 0;
     console.log('Lucky Stones random numbers: ', data)
     for (var key in stones) {
       if (key !== 'selected') {
         if (key == data[0] || key == data[1] ) {
           results[key] = 1;
+          cash++;
         } else {
           results[key] = 0;
         }
       }
+    }
+    if (cash > 0) {
+      User.findOne({ username: req.session.user.username}, function (err, user) {
+        if (err) {
+          console.log('error', err);
+        } else {
+          increaseCash(req.session.user.username, user.cash + cash);
+        }
+      });
     }
     res.json({ error: false, status: "Game started", data: results });
   } else {
@@ -333,4 +343,20 @@ function getLuckyStones () {
     if (a1 !== a2) repeat = false;
   }
   return [a1, a2];
+}
+
+function increaseCash (username, newCash) {
+  User.findOneAndUpdate({
+    username: username
+  }, {
+    cash: newCash
+  },
+  { upsert: true, new: true },
+  function(err, user) {
+    if (err) {
+      console.log('! for user ' + username + ' cash cannot increase');
+    } else {
+      console.log('+ for user ' + username + ' cash increased to ' + newCash);
+    }
+  });
 }

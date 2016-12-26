@@ -1,12 +1,6 @@
 angular.module('app')
   .controller('mainPage', function ($scope, $rootScope,appService) {
     $rootScope.isShowLoading = false;
-    appService.getUser().then(function (response) {
-      $rootScope.profile = response;
-      $rootScope.me = $rootScope.profile.username;
-    }, function (response) {
-      console.log('Error: ',response);
-    });
 
     $rootScope.getMate = function (authors) {
       if (authors[0] == $rootScope.me) {
@@ -32,6 +26,13 @@ angular.module('app')
         console.log('Error: ',response);
       });
     };
+    
+    appService.getUser().then(function (response) {
+      $rootScope.profile = response;
+      $rootScope.me = $rootScope.profile.username;
+    }, function (response) {
+      console.log('Error: ',response);
+    });
   })
   
   .controller('MessagesPage', function ($scope, $rootScope, appService, $location) {
