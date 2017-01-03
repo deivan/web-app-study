@@ -86,7 +86,7 @@ angular.module('app')
     
   })
   
-  .controller('MinigamesLSPage', function ($scope, $rootScope, appService) {
+  .controller('MinigamesLSPage', function ($scope, appService) {
     
     $scope.playDisabled = false;
     
@@ -94,7 +94,7 @@ angular.module('app')
       if ($scope.stones[n] === undefined) {
         if ($scope.stones.selected < 3) {
           $scope.stones[n] = true;
-          $scope.stones.selected++
+          $scope.stones.selected++;
         }
       } else {
         delete $scope.stones[n];
@@ -127,4 +127,11 @@ angular.module('app')
     };
     
     $scope.clearGame();
+  })
+  
+  .controller('MinigamesCRPage', function ($scope, appService) {
+    
+    $scope.bugNumber = 1;
+    $scope.bet = '1';
+    
   });

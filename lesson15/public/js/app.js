@@ -23,5 +23,9 @@ angular.module('app',['ngRoute'])
       .when('/mini/luckystones', {
         templateUrl : 'game-minigames-luckystones.html',
         controller: 'MinigamesLSPage'
+      })
+      .when('/mini/crazyrace', {
+        templateUrl : 'game-minigames-crazyrace.html',
+        controller: 'MinigamesCRPage'
       });
   });
