@@ -11,7 +11,8 @@ angular.module('app')
        getConversation: getConversation,
        sendMessage: sendMessage,
        
-       playLuckyStones: playLuckyStones
+       playLuckyStones: playLuckyStones,
+       playCrazyRace: playCrazyRace
     });
 
     function getUser () {
@@ -92,6 +93,13 @@ angular.module('app')
         data: { stones: data }
       });
       return (request.then( handleSuccess, handleError ));  
+    }
+    
+    function playCrazyRace () {
+      return {
+        winner: 1,
+        speeds: [10, 5, 1]
+      };
     }
     
     // response handlers

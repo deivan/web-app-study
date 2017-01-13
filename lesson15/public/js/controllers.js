@@ -129,9 +129,48 @@ angular.module('app')
     $scope.clearGame();
   })
   
-  .controller('MinigamesCRPage', function ($scope, appService) {
-    
+  .controller('MinigamesCRPage', function ($scope, appService, $interval) {
+    var interval;
     $scope.bugNumber = 1;
     $scope.bet = '1';
+    $scope.bugsPosition = ['0px', '0px', '0px'];
+    $scope.isShowResult = false;
+    $scope.isYouWinner = false;
+    $scope.isPlay = false;
+    
+    $scope.playRace = function () {
+      $scope.playDisabled = true;
+      $scope.isPlay = true;
+      $scope.results = appService.playCrazyRace();
+      playAnimation();
+    };
+    
+    $scope.clearGame = function () {
+      if ($scope.isPlay) return;
+      $scope.playDisabled = false;
+      $scope.bugsPosition = ['0px', '0px', '0px'];
+      $scope.isShowResult = false;
+      $scope.results = null;
+    };
+    
+    function playAnimation () {
+      
+      interval = $interval(function () {
+        var coordinate;
+        for (var i = 0; i < $scope.bugsPosition.length; i++) {
+          coordinate = parseInt($scope.bugsPosition[i]);
+          coordinate += $scope.results.speeds[i];
+          $scope.bugsPosition[i] = coordinate + 'px';
+          if (coordinate > 640) stopCrazyRace();
+        }
+      }, 50);
+    }
+    
+    function stopCrazyRace () {
+      $interval.cancel(interval);
+      $scope.isYouWinner = ($scope.bugNumber === $scope.results.winner);
+      $scope.isShowResult = true;
+      $scope.isPlay = false;
+    }
     
   });
