@@ -486,3 +486,7 @@ h2 {
 .minigames__cr--result div.looser {
   color: #800;
 }
+
+minigames__cr--message {
+  color: #f00;
+}

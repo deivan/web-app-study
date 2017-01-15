@@ -137,12 +137,25 @@ angular.module('app')
     $scope.isShowResult = false;
     $scope.isYouWinner = false;
     $scope.isPlay = false;
+    $scope.isShowError = false;
+    $scope.message = '';
     
     $scope.playRace = function () {
+      var result;
       $scope.playDisabled = true;
       $scope.isPlay = true;
-      $scope.results = appService.playCrazyRace();
-      playAnimation();
+      appService.playCrazyRace($scope.bugNumber, $scope.bet).then(function (data) {
+        result = data;
+        if (result.error) {
+          $scope.isShowError = true;
+          $scope.message = result.status;
+        } else {
+          $scope.isShowError = false;
+          $scope.message = '';
+          $scope.results = result.data;
+          playAnimation();
+        }
+      });
     };
     
     $scope.clearGame = function () {

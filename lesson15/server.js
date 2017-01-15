@@ -314,13 +314,38 @@ app.post('/api/luckystones', function (req, res) {
     if (cash > 0) {
       User.findOne({ username: req.session.user.username}, function (err, user) {
         if (err) {
-          console.log('error', err);
+          console.log('mongodb error', err);
         } else {
-          increaseCash(req.session.user.username, user.cash + cash);
+          updateCash(req.session.user.username, user.cash + cash);
         }
       });
     }
     res.json({ error: false, status: "Game started", data: results });
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
+  }
+});
+
+app.post('/api/crazyrace', function (req, res) {
+  var bug = 1 * req.body.bug, bet = req.body.bet, result;
+  if (req.session.user) {
+    User.findOne({ username: req.session.user.username}, function (err, user) {
+      if (err) {
+        console.log('mongodb error', err);
+      } else {
+        if (bet <= user.cash) {
+          result = getCrazyRaces();
+          if (result.winner === bug) {
+            updateCash(req.session.user.username, user.cash + bet);
+          } else {
+            updateCash(req.session.user.username, user.cash - bet);
+          }
+          res.json({error: false, status: "Game completed", data: result });
+        } else {
+          res.json({error: true, status: "Your bet is more then your cash!", data: {} });
+        }
+      }
+    });      
   } else {
     res.sendFile(__dirname + '/public/error.html');
   }
@@ -345,7 +370,22 @@ function getLuckyStones () {
   return [a1, a2];
 }
 
-function increaseCash (username, newCash) {
+function getCrazyRaces () {
+  var a = [], repeat = true, winner = 0;
+  while (repeat) {
+    a[0] = Math.round(Math.random()*9) +1;
+    a[1] = Math.round(Math.random()*9) +1;
+    a[2] = Math.round(Math.random()*9) +1;
+    winner = Math.max.apply(null, a);
+    if (a[0] !== a[1] && a[0] !== a[2] && a[1] !== a[2]) repeat = false;
+  }
+  return {
+    winner: 1 + a.indexOf(winner),
+    speeds: a
+  };
+}
+
+function updateCash (username, newCash) {
   User.findOneAndUpdate({
     username: username
   }, {

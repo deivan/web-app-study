@@ -95,12 +95,17 @@ angular.module('app')
       return (request.then( handleSuccess, handleError ));  
     }
     
-    function playCrazyRace () {
-      return {
-        winner: 1,
-        speeds: [10, 5, 1]
-      };
-    }
+    function playCrazyRace (bug, bet) {
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'post',
+        url: '/api/crazyrace/',
+        data: {
+          bug: bug,
+          bet: bet
+        }
+      });
+      return (request.then( handleSuccess, handleError ));    }
     
     // response handlers
     function handleSuccess (response) {
