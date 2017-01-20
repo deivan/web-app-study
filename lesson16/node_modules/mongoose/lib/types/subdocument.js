@@ -18,7 +18,7 @@ function Subdocument(value, fields) {
 Subdocument.prototype = Object.create(Document.prototype);
 
 Subdocument.prototype.toBSON = function() {
-  return this.toObject({ transform: false });
+  return this.toObject({ transform: false, virtuals: false });
 };
 
 /**
@@ -58,6 +58,7 @@ Subdocument.prototype.markModified = function(path) {
 };
 
 Subdocument.prototype.$markValid = function(path) {
+  Document.prototype.$markValid.call(this, path);
   if (this.$parent) {
     this.$parent.$markValid([this.$basePath, path].join('.'));
   }

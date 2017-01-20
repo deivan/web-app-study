@@ -6,7 +6,7 @@ angular.module('app',['ngRoute'])
         controller: 'ProfilePage'
       })
       .when('/equipment', {
-        template : '<h1>Eqquipment page</h1>'
+        templateUrl : 'game-equipment.html'
       })
       .when('/messages', {
         templateUrl : 'game-messages.html',
