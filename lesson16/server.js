@@ -327,7 +327,7 @@ app.post('/api/luckystones', function (req, res) {
 });
 
 app.post('/api/crazyrace', function (req, res) {
-  var bug = 1 * req.body.bug, bet = req.body.bet, result;
+  var bug = 1 * req.body.bug, bet = 1 * req.body.bet, result;
   if (req.session.user) {
     User.findOne({ username: req.session.user.username}, function (err, user) {
       if (err) {

@@ -149,6 +149,7 @@ angular.module('app')
         if (result.error) {
           $scope.isShowError = true;
           $scope.message = result.status;
+          $scope.isPlay = false;
         } else {
           $scope.isShowError = false;
           $scope.message = '';
@@ -160,6 +161,8 @@ angular.module('app')
     
     $scope.clearGame = function () {
       if ($scope.isPlay) return;
+      $scope.isShowError = false;
+      $scope.message = '';
       $scope.playDisabled = false;
       $scope.bugsPosition = ['0px', '0px', '0px'];
       $scope.isShowResult = false;
