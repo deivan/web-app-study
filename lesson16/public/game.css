@@ -508,6 +508,20 @@ minigames__cr--message {
   border: 1px solid grey;
 }
 
+.equipment__body .equipment__body--stat .equipment__body--attack {
+  width: 150px;
+  height: 30px;
+  margin-left: 30px;
+  margin-top: 100px;
+}
+
+.equipment__body .equipment__body--stat .equipment__body--shield {
+  width: 150px;
+  height: 30px;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
 .equipment__body .equipment__body--model {
   position:relative;
   float: right;
@@ -538,8 +552,8 @@ minigames__cr--message {
   border: 1px solid grey;
 }
 
-.equipment__pocket {
-  position: relative;
+.equipment__pocket, 
+.equipment__market {
   float: left;
   width: 800px;
   height: 250px;
@@ -547,11 +561,69 @@ minigames__cr--message {
   border: 1px solid grey;
 }
 
-.equipment__market {
-  position: relative;
+.equipment__pocket .equipment__pocket--line,
+.equipment__market .equipment__market--line {
   float: left;
-  width: 800px;
+  width: 780px;
   height: 250px;
-  padding: 20px 0;
-  border: 1px solid grey;
+  margin-left:10px;
+  margin-top:10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.equipment__pocket .equipment__pocket--line .equipment__pocket--good,
+.equipment__market .equipment__market--line .equipment__market--good {
+  display: inline-block;
+  width: 210px;
+  height:210px;
+  padding:5px;
+  border:1px dotted #888;
+}
+
+.good__item--title {
+  float: left;
+  width: 100%;
+  height: 24px;
+  text-align: center;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+.good__item--image {
+  float: left;
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin-left: 50px;
+}
+
+.good__item--description {
+  float: left;
+  width: 100%;
+  height: 65px;
+  text-indent: 5px;
+  line-height: 15px;
+  color: #008;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+
+.good__item--action {
+  float: left;
+  width: 100%;
+  height: 26px;
+  text-align: center;
+}
+
+.good__item--action a {
+  padding: 2px 10px;
+  background-color: #008;
+  color: #fff;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.good__item--action a:hover {
+  background-color: #00c;
 }
