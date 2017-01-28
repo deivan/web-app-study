@@ -574,6 +574,7 @@ minigames__cr--message {
 
 .equipment__pocket .equipment__pocket--line .equipment__pocket--good,
 .equipment__market .equipment__market--line .equipment__market--good {
+  position: relative;
   display: inline-block;
   width: 210px;
   height:210px;
@@ -627,3 +628,20 @@ minigames__cr--message {
 .good__item--action a:hover {
   background-color: #00c;
 }
+
+.good__item--price {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-bottom-right-radius: 100%;
+  font-weight: 900;
+  background-color: rgba(255,255,0,0.5);
+  color: #f00;
+  text-indent: 10px;
+  line-height: 60px;
+}
+
+.equipment__pocket .equipment__pocket--line .equipment__pocket--good .good__item--price {
+  background-color: rgba(0,200,0,0.3);
+  color: #f0f;  
+} 
