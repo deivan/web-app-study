@@ -189,4 +189,21 @@ angular.module('app')
       $scope.isPlay = false;
     }
     
+  })
+  
+  .controller('EquipmentPage', function ($scope) {
+    $scope.market = [
+      {
+        title: 'Light Sonar',
+        image: '',
+        description: 'Not very might sonar',
+        price: 20
+      },
+      {
+        title: 'Might Light Sonar',
+        image: '',
+        description: 'A might sonar',
+        price: 50
+      }
+    ];
   });

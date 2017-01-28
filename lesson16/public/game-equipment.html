@@ -73,32 +73,18 @@
 <h1>Items in store</h1>
 <div class="equipment__market">
   <div class="equipment__market--line">
-    <div class="equipment__market--good">
+    <div class="equipment__market--good" ng-repeat="item in market">
       <div class="good__item--title">
-        Light sonar
+        {{item.title}}
       </div>
       <img class="good__item--image" src="">
       <div class="good__item--description">
-        Head sonar with low energy power. Good for newbi, bad for profi.
+        {{item.description}}
       </div>
       <div class="good__item--action">
         <a href>Wear</a>
       </div>
-      <div class="good__item--price">99</div>
-    </div>
-    <div class="equipment__market--good">
-      <div class="good__item--title">
-        Light sonar
-      </div>
-      <img class="good__item--image" src="">
-      <div class="good__item--description">
-        Head sonar with low energy power. Good for newbi, bad for profi.
-      </div>
-      <div class="good__item--action">
-        <a href>Wear</a>
-      </div>
-      <div class="good__item--price">99</div>
-    </div>    
-    
+      <div class="good__item--price">{{item.price}}</div>
+    </div>   
   </div>
 </div>
