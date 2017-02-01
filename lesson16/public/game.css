@@ -490,3 +490,158 @@ h2 {
 minigames__cr--message {
   color: #f00;
 }
+
+.equipment__body {
+  position: relative;
+  float: left;
+  width: 800px;
+  height: 300px;
+  padding: 20px 0;
+  border: 1px solid grey;
+}
+
+.equipment__body .equipment__body--stat {
+  float: left;
+  width:350px;
+  height: 270px;
+  margin-left: 30px;
+  border: 1px solid grey;
+}
+
+.equipment__body .equipment__body--stat .equipment__body--attack {
+  width: 150px;
+  height: 30px;
+  margin-left: 30px;
+  margin-top: 100px;
+}
+
+.equipment__body .equipment__body--stat .equipment__body--shield {
+  width: 150px;
+  height: 30px;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.equipment__body .equipment__body--model {
+  position:relative;
+  float: right;
+  width:350px;
+  height: 270px;
+  margin-right: 30px;
+  border: 1px solid grey;
+}
+
+.equipment__body .equipment__body--model .equipment__body--guns {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  left: 135px;
+  top: 25px;
+  border-radius: 50%;
+  border: 1px solid grey;
+}
+
+.equipment__body .equipment__body--model .equipment__body--shield {
+  position: absolute;
+  width: 120px;
+  height:150px;
+  left: 115px;
+  top: 105px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border: 1px solid grey;
+}
+
+.equipment__pocket, 
+.equipment__market {
+  float: left;
+  width: 800px;
+  height: 250px;
+  padding: 20px 0;
+  border: 1px solid grey;
+}
+
+.equipment__pocket .equipment__pocket--line,
+.equipment__market .equipment__market--line {
+  float: left;
+  width: 780px;
+  height: 250px;
+  margin-left:10px;
+  margin-top:10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.equipment__pocket .equipment__pocket--line .equipment__pocket--good,
+.equipment__market .equipment__market--line .equipment__market--good {
+  position: relative;
+  display: inline-block;
+  width: 210px;
+  height:210px;
+  padding:5px;
+  border:1px dotted #888;
+}
+
+.good__item--title {
+  float: left;
+  width: 100%;
+  height: 24px;
+  text-align: center;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+.good__item--image {
+  float: left;
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin-left: 50px;
+}
+
+.good__item--description {
+  float: left;
+  width: 100%;
+  height: 65px;
+  text-indent: 5px;
+  line-height: 15px;
+  color: #008;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+
+.good__item--action {
+  float: left;
+  width: 100%;
+  height: 26px;
+  text-align: center;
+}
+
+.good__item--action a {
+  padding: 2px 10px;
+  background-color: #008;
+  color: #fff;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.good__item--action a:hover {
+  background-color: #00c;
+}
+
+.good__item--price {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-bottom-right-radius: 100%;
+  font-weight: 900;
+  background-color: rgba(255,255,0,0.5);
+  color: #f00;
+  text-indent: 10px;
+  line-height: 60px;
+}
+
+.equipment__pocket .equipment__pocket--line .equipment__pocket--good .good__item--price {
+  background-color: rgba(0,200,0,0.3);
+  color: #f0f;  
+} 
