@@ -58,10 +58,18 @@ angular.module('app',['ngRoute'])
     $scope.conversations = [
       {
         _id: 1,
-        authors: ['Snake', me],
+        authors: ['Snake', 'Adam'], //one id but two authors - curiously
         messages: [
-          { date: 1479462858686, author: 'Adam', text: 'Hello, how R U?'},
-          { date: 1479462858686, author: 'Snake', text: 'Hello, how R U?'}
+          { date: new Date(1479462858686).toLocaleTimeString(), author: 'Adam', text: 'Hello, how R U?'},
+          { date: new Date(1479462859888).toLocaleTimeString(), author: 'Snake', text: 'Hello, how R U?'}
+        ]
+      },
+            {
+      _id: 2,
+        authors: ['Eve', 'Adam'],
+        messages: [
+          { date: new Date(1479462858686).toLocaleTimeString(), author: 'Adam', text: 'Hello, how R U?'},
+          { date: new Date(1479462859999).toLocaleTimeString(), author: 'Eve', text: 'Hello, how R U?'}
         ]
       }
     ];
