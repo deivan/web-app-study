@@ -2,71 +2,36 @@
 <div class="equipment__body">
   <div class="equipment__body--stat">
     <div class="equipment__body--attack">
-      Attack: <span>1</span>
+      Attack: <span>{{attack}}</span>
     </div>
     <div class="equipment__body--shield">
-      Shield: <span>1</span>
+      Defence: <span>{{defence}}</span>
     </div>
   </div>
   <div class="equipment__body--model">
-    <div class="equipment__body--guns"></div>
-    <div class="equipment__body--shield"></div>
+    <div class="equipment__body--guns" ng-click="unwear('gun')">
+      <img ng-show="body.gun.image" ng-src="{{body.gun.image}}" />
+    </div>
+    <div class="equipment__body--shield" ng-click="unwear('shield')">
+      <img ng-show="body.shield.image" ng-src="{{body.shield.image}}" />
+    </div>
   </div>
 </div>
 <h1>My items for use</h1>
 <div class="equipment__pocket">
   <div class="equipment__pocket--line">
-    <div class="equipment__pocket--good">
+    <div class="equipment__pocket--good" ng-repeat="item in pocket" ng-hide="item.weared">
       <div class="good__item--title">
-        Mighty Light sonar
+        {{item.title}}
       </div>
-      <img class="good__item--image" src="">
+      <img class="good__item--image" ng-src="{{item.image}}">
       <div class="good__item--description">
-        Head sonar with low energy power. Good for newbi, bad for profi.
+        {{item.description}}
       </div>
       <div class="good__item--action">
-        <a href>Wear</a>
+        <a href ng-click="wearItem(item)">Wear</a>
       </div>
-      <div class="good__item--price">99</div>
-    </div>
-    <div class="equipment__pocket--good">
-      <div class="good__item--title">
-        Light sonar
-      </div>
-      <img class="good__item--image" src="">
-      <div class="good__item--description">
-        Head sonar with low energy power. Good for newbi, bad for profi.
-      </div>
-      <div class="good__item--action">
-        <a href>Wear</a>
-      </div>
-      <div class="good__item--price">22</div>
-    </div>
-    <div class="equipment__pocket--good">
-      <div class="good__item--title">
-        Light sonar
-      </div>
-      <img class="good__item--image" src="">
-      <div class="good__item--description">
-        Head sonar with low energy power. Good for newbi, bad for profi.
-      </div>
-      <div class="good__item--action">
-        <a href>Wear</a>
-      </div>
-      <div class="good__item--price">15</div>
-    </div>
-    <div class="equipment__pocket--good">
-      <div class="good__item--title">
-        Light sonar
-      </div>
-      <img class="good__item--image" src="">
-      <div class="good__item--description">
-        Head sonar with low energy power. Good for newbi, bad for profi.
-      </div>
-      <div class="good__item--action">
-        <a href>Wear</a>
-      </div>
-      <div class="good__item--price">34</div>
+      <div class="good__item--price">{{item.time}}</div>
     </div>
   </div>
 </div>
@@ -77,12 +42,12 @@
       <div class="good__item--title">
         {{item.title}}
       </div>
-      <img class="good__item--image" src="">
+      <img class="good__item--image" ng-src="{{item.image}}">
       <div class="good__item--description">
         {{item.description}}
       </div>
       <div class="good__item--action">
-        <a href>Wear</a>
+        <a href ng-click="buyItem(item)">Buy</a>
       </div>
       <div class="good__item--price">{{item.price}}</div>
     </div>   

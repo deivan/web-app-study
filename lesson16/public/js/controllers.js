@@ -191,19 +191,34 @@ angular.module('app')
     
   })
   
-  .controller('EquipmentPage', function ($scope) {
-    $scope.market = [
-      {
-        title: 'Light Sonar',
-        image: '',
-        description: 'Not very might sonar',
-        price: 20
-      },
-      {
-        title: 'Might Light Sonar',
-        image: '',
-        description: 'A might sonar',
-        price: 50
+  .controller('EquipmentPage', function ($scope, appService) {
+    $scope.market = appService.getMarketGoods();
+    $scope.pocket = {};
+    $scope.body = {
+      gun: {},
+      shield: {}
+    };
+    $scope.attack = 1;
+    $scope.defence = 1;
+    
+    $scope.buyItem = function (item) {
+      $scope.pocket[item.id] = item;
+      $scope.pocket[item.id].weared = false;
+    };
+    
+    $scope.wearItem = function (item) {
+      if ($scope.body[item.type].id === undefined) {
+        $scope.body[item.type] = {
+          id: item.id,
+          image: item.image
+        };
+        $scope.pocket[item.id].weared = true;
       }
-    ];
+    };
+    
+    $scope.unwear = function (key) {
+      if ($scope.body[key].id === undefined) return;
+      $scope.pocket[$scope.body[key].id].weared = false;
+      $scope.body[key]= {};
+    };
   });

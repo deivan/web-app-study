@@ -3,6 +3,7 @@ angular.module('app')
     return ({
        getUser: getUser,
        updateProfile: updateProfile,
+       getMarketGoods: getMarketGoods,
        
        getUsers: getUsers,
        
@@ -33,6 +34,41 @@ angular.module('app')
         data: data
       });
       return (request.then( handleSuccess, handleError ));
+    }
+    
+    function getMarketGoods () {
+      return [
+        {
+          id: 1,
+          type:'gun',
+          title: 'Light Sonar',
+          image: 'images/equip/light_gun01.png',
+          description: 'Head sonar with low energy power. Good for newbi, bad for profi',
+          power: 3,
+          price: 20,
+          time: 20
+        },
+        {
+          id: 2,
+          type:'gun',
+          title: 'Might Light Sonar',
+          image: 'images/equip/light_gun02.png',
+          description: 'THat is some better them light sonar',
+          power: 5,
+          price: 50,
+          time: 30
+        },
+        {
+          id: 3,
+          type:'shield',
+          title: 'Rope armour',
+          image: 'images/equip/shield_light01.png',
+          description: 'Light shield made from rope',
+          power: 4,
+          price: 40,
+          time: 20
+        }
+      ];
     }
 
     function getUsers () {

@@ -539,6 +539,7 @@ minigames__cr--message {
   top: 25px;
   border-radius: 50%;
   border: 1px solid grey;
+  cursor: pointer;
 }
 
 .equipment__body .equipment__body--model .equipment__body--shield {
@@ -550,6 +551,13 @@ minigames__cr--message {
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   border: 1px solid grey;
+  cursor: pointer;
+}
+
+.equipment__body .equipment__body--model .equipment__body--guns img,
+.equipment__body .equipment__body--model .equipment__body--shield img {
+  width: 100%;
+  height: 100%;
 }
 
 .equipment__pocket, 
@@ -577,9 +585,10 @@ minigames__cr--message {
   position: relative;
   display: inline-block;
   width: 210px;
-  height:210px;
-  padding:5px;
-  border:1px dotted #888;
+  height: 210px;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px dotted #888;
 }
 
 .good__item--title {
@@ -635,6 +644,7 @@ minigames__cr--message {
   height: 60px;
   border-bottom-right-radius: 100%;
   font-weight: 900;
+  font-size: 24px;
   background-color: rgba(255,255,0,0.5);
   color: #f00;
   text-indent: 10px;
