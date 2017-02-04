@@ -202,8 +202,10 @@ angular.module('app')
     $scope.defence = 1;
     
     $scope.buyItem = function (item) {
+      if($scope.pocket[item.id] !== undefined && $scope.pocket[item.id].weared === true) return;
       $scope.pocket[item.id] = item;
       $scope.pocket[item.id].weared = false;
+      console.log(item.id, $scope.pocket)
     };
     
     $scope.wearItem = function (item) {
@@ -213,6 +215,7 @@ angular.module('app')
           image: item.image
         };
         $scope.pocket[item.id].weared = true;
+        console.log($scope.pocket, $scope.body.gun, $scope.body.shield)
       }
     };
     
