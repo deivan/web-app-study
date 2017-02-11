@@ -52,6 +52,12 @@
             </div>
             <div class="main" ng-view=""></div>
         </div>
+      <div class="modal-chat">
+        <div class="modal-chat__button">+</div>
+        <div class="modal-chat__messages">
+          <div class="modal-chat__message" ng-repeat="item in messages"></div>
+        </div>
+      </div>
       <div class="modal-loading" ng-show="isShowLoading"><div>Loading ...</div></div>
       <script src="js/angular.min.js"></script>
       <script src="js/angular-route.js"></script>
