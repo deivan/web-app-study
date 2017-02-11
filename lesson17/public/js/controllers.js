@@ -1,6 +1,8 @@
 angular.module('app')
   .controller('mainPage', function ($scope, $rootScope,appService) {
     $rootScope.isShowLoading = false;
+    $scope.messages = [];
+    $scope.chatMessage = '';
 
     $rootScope.getMate = function (authors) {
       if (authors[0] == $rootScope.me) {
@@ -22,14 +24,16 @@ angular.module('app')
 
     socket.onmessage = function(event) {
       console.log("Получены данные " + event.data);
+      $scope.messages.push(event.data);
     };
 
     socket.onerror = function(error) {
       console.log("Ошибка " + error.message);
     };
     
-    $rootScope.sendMessageToChat = function (msg) {
-      socket.send(msg);
+    $scope.sendMessage = function () {
+      socket.send($rootScope.chatMessage);
+      $scope.chatMessage = '';
     };
   })
   
