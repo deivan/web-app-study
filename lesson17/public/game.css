@@ -655,3 +655,63 @@ minigames__cr--message {
   background-color: rgba(0,200,0,0.3);
   color: #f0f;  
 } 
+
+.modal-chat {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 300px;
+  height: 400px;
+  background-color: blanchedalmond;
+  z-index:99;
+}
+
+.modal-chat .modal-chat__button {
+  position: absolute;
+  right: -40px;
+  top: 0px;
+  width: 40px;
+  height: 40px;
+  background-color: blanchedalmond;
+  font-size:36px;
+  font-weight: 900;
+  cursor: pointer;
+  text-align: center;
+  line-height:40px;
+}
+
+.modal-chat .modal-chat__messages {
+  float:left;
+  width: 280px;
+  height:355px;
+  margin-top: 10px;
+  margin-left:10px;
+  border: 1px dotted #444;
+  overflow-y:auto;
+}
+
+.modal-chat .modal-chat__messages .modal-chat__message {
+  float:left;
+  width:100%;
+  border-bottom: 1px solid #ccc;
+  margin-bottom:10px;
+  padding-bottom:10px;
+}
+
+.modal-chat .modal-chat__input {
+  display: block;
+  width: 200px;
+  height:25px;
+  float:left;
+  margin-left:10px;
+}
+
+.modal-chat .modal-chat__send {
+  display: block;
+  width: 50px;
+  height:25px;
+  float:right;  
+  margin-right:10px;
+}
+
+

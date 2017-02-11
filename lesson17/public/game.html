@@ -57,6 +57,8 @@
         <div class="modal-chat__messages">
           <div class="modal-chat__message" ng-repeat="item in messages"></div>
         </div>
+        <input type="text" class="modal-chat__input" ng-model="chatMessage" />
+        <button class="modal-chat__send" ng-click="sendMessage">Send</button>
       </div>
       <div class="modal-loading" ng-show="isShowLoading"><div>Loading ...</div></div>
       <script src="js/angular.min.js"></script>
