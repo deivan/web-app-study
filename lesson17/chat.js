@@ -3,10 +3,10 @@ var WebSocketServer = new require('ws');
 // подключенные клиенты
 var clients = {};
 
-var webSocketServer = new WebSocketServer.Server({
+var wss = new WebSocketServer.Server({
   port: 8001
 });
-webSocketServer.on('connection', function(ws) {
+wss.on('connection', function (ws) {
 
   var id = Math.random();
   clients[id] = ws;
@@ -14,9 +14,9 @@ webSocketServer.on('connection', function(ws) {
 
   ws.on('message', function(message) {
     console.log('получено сообщение ' + message);
-
-    for (var key in clients) {
-      clients[key].send(message);
+    if (message != 'ababagalamaga') {
+      for (var key in clients)
+        clients[key].send(message);
     }
   });
 

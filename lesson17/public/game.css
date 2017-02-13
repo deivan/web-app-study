@@ -666,6 +666,16 @@ minigames__cr--message {
   z-index:99;
 }
 
+.modal-chat.closed {
+  width:0px;
+}
+
+.modal-chat .modal-chat__wrapper {
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}
+
 .modal-chat .modal-chat__button {
   position: absolute;
   right: -40px;

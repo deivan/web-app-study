@@ -52,13 +52,15 @@
             </div>
             <div class="main" ng-view=""></div>
         </div>
-      <div class="modal-chat">
-        <div class="modal-chat__button">+</div>
-        <div class="modal-chat__messages">
-          <div class="modal-chat__message" ng-repeat="item in messages"></div>
+      <div class="modal-chat" ng-class="{'closed' : isChatClosed}">
+        <div class="modal-chat__button" ng-click="toggleChat()">+</div>
+        <div class="modal-chat__wrapper" ng-class="{'closed' : isChatClosed}">
+          <div class="modal-chat__messages">
+            <div class="modal-chat__message" ng-repeat="item in messages">{{item}}</div>
+          </div>
+          <input type="text" class="modal-chat__input" ng-model="chatMessage" />
+          <button class="modal-chat__send" ng-click="sendMessage()">Send</button>
         </div>
-        <input type="text" class="modal-chat__input" ng-model="chatMessage" />
-        <button class="modal-chat__send" ng-click="sendMessage">Send</button>
       </div>
       <div class="modal-loading" ng-show="isShowLoading"><div>Loading ...</div></div>
       <script src="js/angular.min.js"></script>

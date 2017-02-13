@@ -1,8 +1,9 @@
 angular.module('app')
   .controller('mainPage', function ($scope, $rootScope,appService) {
     $rootScope.isShowLoading = false;
-    $scope.messages = [];
     $scope.chatMessage = '';
+    $scope.isChatClosed = true;
+    $scope.messages = $rootScope.messages;
 
     $rootScope.getMate = function (authors) {
       if (authors[0] == $rootScope.me) {
@@ -12,28 +13,13 @@ angular.module('app')
       }
     };
     
-    var socket = new WebSocket('ws://demenkov.dp.ua/chat');
-    
-    socket.onopen = function() {
-      console.log("Соединение установлено.");
-    };
-
-    socket.onclose = function(event) {
-      console.log('Код: ' + event.code + ' причина: ' + event.reason);
-    };
-
-    socket.onmessage = function(event) {
-      console.log("Получены данные " + event.data);
-      $scope.messages.push(event.data);
-    };
-
-    socket.onerror = function(error) {
-      console.log("Ошибка " + error.message);
-    };
-    
     $scope.sendMessage = function () {
-      socket.send($rootScope.chatMessage);
+      $rootScope.sendToSocket($scope.chatMessage);
       $scope.chatMessage = '';
+    };
+    
+    $scope.toggleChat = function () {
+      $scope.isChatClosed = !$scope.isChatClosed;
     };
   })
   

@@ -32,5 +32,30 @@ angular.module('app',['ngRoute'])
   })
   
   .run(function($rootScope){
+    $rootScope.messages = [];
+    var socket = new WebSocket('ws://demenkov.dp.ua:8001');
+    
+    socket.onopen = function() {
+      console.log("Соединение установлено.");
+    };
 
+    socket.onclose = function(event) {
+      console.log('Код: ' + event.code + ' причина: ' + event.reason);
+    };
+
+    socket.onmessage = function(event) {
+      console.log("Получены данные " + event.data);
+      $rootScope.messages.push(event.data);
+      $rootScope.$apply();
+    };
+
+    socket.onerror = function(error) {
+      console.log("Ошибка " + error.message);
+    };
+    
+    $rootScope.sendToSocket = function (data) {
+      socket.send(data);
+    };
+    
+    //$rootScope.sendToSocket('ababagalamaga');
   });
