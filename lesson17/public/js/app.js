@@ -48,6 +48,7 @@ angular.module('app',['ngRoute'])
       var data;
       try {
         data = JSON.parse(event.data);
+        data.data.text = decodeURI(data.data.text);
         $rootScope.messages.push(data);
         $rootScope.$apply();
       } catch (error) {
