@@ -44,9 +44,16 @@ angular.module('app',['ngRoute'])
     };
 
     socket.onmessage = function(event) {
-      console.log("Получены данные " + event.data);
-      $rootScope.messages.push(event.data);
-      $rootScope.$apply();
+      console.log("Получены данные ", event);
+      var data;
+      try {
+        data = JSON.parse(event.data);
+        $rootScope.messages.push(data);
+        $rootScope.$apply();
+      } catch (error) {
+        console.log('error when parsing JSON:',error);
+      }
+
     };
 
     socket.onerror = function(error) {
@@ -54,7 +61,14 @@ angular.module('app',['ngRoute'])
     };
     
     $rootScope.sendToSocket = function (data) {
-      socket.send(data);
+      var message = {
+        type: 'chat',
+        data: {
+          name: $rootScope.me,
+          text: encodeURI(data)
+        }
+      };
+      socket.send(JSON.stringify(message));
     };
     
     //$rootScope.sendToSocket('ababagalamaga');
