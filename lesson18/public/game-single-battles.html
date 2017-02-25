@@ -1,13 +1,13 @@
 <h1>Single battles</h1>
 <div class="single-battles__tabs">
-  <div class="single-battles__tabs--bot"></div>
-  <div class="single-battles__tabs--human"></div>
+  <div class="single-battles__tabs--bot" ng-class="{'tab--selected': tab === 1}" ng-click="setTab(1)">Battle with angry bot</div>
+  <div class="single-battles__tabs--human" ng-class="{'tab--selected': tab === 2}" ng-click="setTab(2)">Battle with opponent</div>
 </div>
 
-<div class="single-battles__content">
-  
+<div class="single-battles__content" ng-if="tab === 1">
+  1111
 </div>
 
-<div class="single-battles__content">
-  
+<div class="single-battles__content" ng-if="tab === 2">
+  2222
 </div>

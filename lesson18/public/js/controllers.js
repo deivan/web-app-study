@@ -296,5 +296,9 @@ angular.module('app')
   })
   
   .controller('SingleBattle', function ($scope, appService) {
+    $scope.tab = 1;
     
+    $scope.setTab = function (tab) {
+      $scope.tab = tab;
+    };
   });
