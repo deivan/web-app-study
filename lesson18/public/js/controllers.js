@@ -18,6 +18,10 @@ angular.module('app')
       $scope.chatMessage = '';
     };
     
+    $scope.typeMessage = function (e) {
+      if (e.charCode === 13) $scope.sendMessage();
+    };
+    
     $scope.toggleChat = function () {
       $scope.isChatClosed = !$scope.isChatClosed;
     };

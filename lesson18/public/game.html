@@ -61,7 +61,7 @@
               <span style="font-weight:900">{{item.data.name}}:</span>&nbsp;{{item.data.text}}
             </div>
           </div>
-          <input type="text" class="modal-chat__input" ng-model="chatMessage" />
+          <input type="text" class="modal-chat__input" ng-keypress="typeMessage($event)" ng-model="chatMessage" />
           <button class="modal-chat__send" ng-click="sendMessage()">Send</button>
         </div>
       </div>
