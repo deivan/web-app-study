@@ -838,10 +838,57 @@ minigames__cr--message {
   float:left;
   width:150px;
   height:100%;
+  margin-left:30px;
 }
 
 .single-battles__status .single-battles__status--enemy {
   float:right;
   width:150px;
   height:100%;
+  margin-right:30px;
+}
+
+.health--label {
+  font-weight: 900;
+}
+.health--line {
+  position:relative;
+  width:100%;
+  height:15px;
+  border: 1px solid #080;
+  background-color: black;
+  color:#fff;
+}
+
+.health--line .health--value {
+  text-align: center;
+  font-style: italic;
+  position:absolute;
+  height:15px;
+  width:100%;
+  top:0px;
+  left:0px;
+}
+
+.health--line .health--back {
+  position:absolute;
+  height:15px;
+  width:100%;
+  top:0px;
+  left:0px;
+  background-color: #080;
+}
+
+.single-battles__status--timer {
+  width: 80px;
+  height:40px;
+  line-height: 40px;
+  margin: 0 auto;
+  margin-top: -10px;
+  background-color:#fff;
+  color: #f00;
+  text-align:center;
+  font-size: 25px;
+  border-radius:5px;
+  border: 3px solid #f00;
 }
