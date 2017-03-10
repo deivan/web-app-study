@@ -295,10 +295,47 @@ angular.module('app')
     }
   })
   
-  .controller('SingleBattle', function ($scope, appService) {
+  .controller('SingleBattle', function ($scope, $timeout) {
     $scope.tab = 1;
+    $scope.overlay = [true,true];
+    $scope.healthPlayer = 20;
+    $scope.healthEnemy = 20;
+    $scope.maxHealth = 20;
+    $scope.turnTime = 30;
+    $scope.selectedShield = null;
+    $scope.selectedStrike = null;
+    $scope.playerStyle = {};
+    $scope.enemyStyle = {};
     
     $scope.setTab = function (tab) {
       $scope.tab = tab;
     };
+    
+    $scope.startGame = function (tab) {
+      $scope.overlay[tab] = false;
+      $scope.battleTimer = $timeout(countDown, 1000);
+    };
+    
+    $scope.hitPlayer = function (zone) {
+      if ($scope.healthPlayer <= 0) return;
+      $scope.selectedShield = zone;
+      $scope.healthPlayer--;
+      $scope.playerStyle = {width: ($scope.healthPlayer / $scope.maxHealth * 100) + '%'};
+    };
+    
+    $scope.hitEnemy = function (zone) {
+      if ($scope.healthEnemy <= 0) return;
+      $scope.selectedStrike = zone;
+      $scope.healthEnemy--;
+      $scope.enemyStyle = {width: ($scope.healthEnemy / $scope.maxHealth * 100) + '%'};
+    };
+    
+    function countDown () {
+      $scope.turnTime--;
+      if ($scope.turnTime > 0) {
+        $scope.battleTimer = $timeout(countDown, 1000);
+      } else {
+        $timeout.cancel($scope.battleTimer);
+      }
+    }
   });

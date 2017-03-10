@@ -6,34 +6,37 @@
 
 <div class="single-battles__content" ng-if="tab === 1">
   <div class="single-battles__player">
-    <div class="single-battles__player--wings"></div>
-    <div class="single-battles__player--body"></div>
-    <div class="single-battles__player--head"></div>
+    <div class="single-battles__player--wings" ng-class="{'selected':selectedShield === 1}" ng-click="hitPlayer(1)"></div>
+    <div class="single-battles__player--body" ng-class="{'selected':selectedShield === 2}" ng-click="hitPlayer(2)"></div>
+    <div class="single-battles__player--head" ng-class="{'selected':selectedShield === 3}" ng-click="hitPlayer(3)"></div>
   </div>
   <div class="single-battles__enemy">
-    <div class="single-battles__enemy--wings"></div>
-    <div class="single-battles__enemy--body"></div>
-    <div class="single-battles__enemy--head"></div>
+    <div class="single-battles__enemy--wings" ng-class="{'selected':selectedStrike === 1}" ng-click="hitEnemy(1)"></div>
+    <div class="single-battles__enemy--body" ng-class="{'selected':selectedStrike === 2}" ng-click="hitEnemy(2)"></div>
+    <div class="single-battles__enemy--head" ng-class="{'selected':selectedStrike === 3}" ng-click="hitEnemy(3)"></div>
   </div>
   <div class="single-battles__status">
     <div class="single-battles__status--player">
       <div class="health--label">Player health</div>
       <div class="health--line">
-        <div class="health--back"></div>
-        <div class="health--value">15</div>
+        <div class="health--back" ng-style="playerStyle"></div>
+        <div class="health--value">{{healthPlayer}}</div>
       </div>
     </div>
     <div class="single-battles__status--enemy">
       <div class="health--label">Enemy health</div>
       <div class="health--line">
-        <div class="health--back"></div>
-        <div class="health--value">15</div>
+        <div class="health--back" ng-style="enemyStyle"></div>
+        <div class="health--value">{{healthEnemy}}</div>
       </div>
     </div>
-    <div class="single-battles__status--timer">0:24</div>
+    <div class="single-battles__status--timer">0:{{turnTime}}</div>
+    <div class="single-battles__status--fight"></div>
   </div>
+  <div class="single-battles__overlay" ng-click="startGame(0)" ng-show="overlay[0]"></div>
 </div>
 
 <div class="single-battles__content" ng-if="tab === 2">
   2222
+  <div class="single-battles__overlay" ng-click="startGame(1)" ng-show="overlay[1]"></div>
 </div>
