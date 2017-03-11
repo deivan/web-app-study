@@ -423,6 +423,50 @@ app.post('/api/goods/user/:id/wear', function (req, res) {
    }
  });
  
+ app.post('/api/single-battle/start', function (req, res) {
+   if (req.session.user) {
+     if (singleBattles[req.session.user.username] !== undefined) {
+       res.json({error: true, status: "Battle exist", data: {} });
+     } else {
+       singleBattles[req.session.user.username] = {
+         healthPlayer: 20,
+         healthEnemy:20,
+         hitPlayer: 5,
+         hitEnemy: 5,
+         timeout: null
+       };
+       res.json({error: false, status: "Battle started", data: {} });
+     }
+   } else {
+     res.sendFile(__dirname + '/public/error.html');
+   }
+ });
+ 
+ app.post('/api/single-battle/turn', function (req, res) {
+   if (req.session.user) {
+      var selectedStrike = req.body.selectedStrike *1,
+          selectedShield = req.body.selectedShield *1;
+      var enemyStrike = Math.round(Math.random()*3 + 1),
+          enemyShield = Math.round(Math.random()*3 + 1);
+      if (selectedStrike === enemyShield) {
+        singleBattles[req.session.user.username].healthEnemy--;
+      } else {
+        singleBattles[req.session.user.username].healthEnemy =- 5;
+      }
+      if (selectedShield === enemyStrike) {
+        singleBattles[req.session.user.username].healthPlayer--;
+      } else {
+        singleBattles[req.session.user.username].healthPlayer =- 5;
+      }
+      res.json({error: false, status: "Turh done", data: {
+          healthEnemy: singleBattles[req.session.user.username].healthEnemy, 
+          healthPlayer: singleBattles[req.session.user.username].healthPlayer} 
+      });
+   } else {
+     res.sendFile(__dirname + '/public/error.html');
+   }
+ });
+ 
  var singleBattles = {};
 
 app.listen(port);

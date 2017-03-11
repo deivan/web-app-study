@@ -326,7 +326,8 @@ angular.module('app')
         selectedShield: $scope.selectedShield,
         selectedStrike: $scope.selectedStrike
       }).then(function (data) {
-        
+        $scope.healthPlayer = data.data.healthPlayer;
+        $scope.healthEnemy = data.data.healthEnemy;
       }).catch(function (data) {
         
       });
@@ -335,14 +336,12 @@ angular.module('app')
     $scope.hitPlayer = function (zone) {
       if ($scope.healthPlayer <= 0) return;
       $scope.selectedShield = zone;
-      $scope.healthPlayer--;
       $scope.playerStyle = {width: ($scope.healthPlayer / $scope.maxHealth * 100) + '%'};
     };
     
     $scope.hitEnemy = function (zone) {
       if ($scope.healthEnemy <= 0) return;
       $scope.selectedStrike = zone;
-      $scope.healthEnemy--;
       $scope.enemyStyle = {width: ($scope.healthEnemy / $scope.maxHealth * 100) + '%'};
     };
     
