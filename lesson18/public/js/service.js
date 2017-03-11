@@ -15,7 +15,10 @@ angular.module('app')
        sendMessage: sendMessage,
        
        playLuckyStones: playLuckyStones,
-       playCrazyRace: playCrazyRace
+       playCrazyRace: playCrazyRace,
+       
+       startSingleBattle: startSingleBattle,
+       turnSingleBattle: turnSingleBattle
     });
 
     function getUser () {
@@ -138,7 +141,28 @@ angular.module('app')
           bet: bet
         }
       });
-      return (request.then( handleSuccess, handleError ));    }
+      return (request.then( handleSuccess, handleError ));    
+    }
+    
+    function startSingleBattle () {
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'post',
+        url: '/api/single-battle/start/',
+        data: {}
+      });
+      return (request.then( handleSuccess, handleError ));      
+    }
+    
+    function turnSingleBattle (data) {
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'post',
+        url: '/api/single-battle/turn/',
+        data: data
+      });
+      return (request.then( handleSuccess, handleError ));      
+    }
     
     // response handlers
     function handleSuccess (response) {

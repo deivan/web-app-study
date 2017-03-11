@@ -295,7 +295,7 @@ angular.module('app')
     }
   })
   
-  .controller('SingleBattle', function ($scope, $timeout) {
+  .controller('SingleBattle', function ($scope, $timeout, appService) {
     $scope.tab = 1;
     $scope.overlay = [true,true];
     $scope.healthPlayer = 20;
@@ -312,8 +312,24 @@ angular.module('app')
     };
     
     $scope.startGame = function (tab) {
-      $scope.overlay[tab] = false;
-      $scope.battleTimer = $timeout(countDown, 1000);
+      appService.startSingleBattle().then(function (data) {
+        $scope.overlay[tab] = false;
+        $scope.battleTimer = $timeout(countDown, 1000);
+      }).catch(function (data) {
+        
+      });
+    };
+    
+    $scope.makeTurn = function () {
+      if ($scope.selectedShield === null || $scope.selectedStrike === null) return;
+      appService.turnSingleBattle({
+        selectedShield: $scope.selectedShield,
+        selectedStrike: $scope.selectedStrike
+      }).then(function (data) {
+        
+      }).catch(function (data) {
+        
+      });
     };
     
     $scope.hitPlayer = function (zone) {
