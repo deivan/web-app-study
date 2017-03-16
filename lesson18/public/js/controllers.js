@@ -328,21 +328,21 @@ angular.module('app')
       }).then(function (data) {
         $scope.healthPlayer = data.data.healthPlayer;
         $scope.healthEnemy = data.data.healthEnemy;
+        $scope.playerStyle = {width: ($scope.healthPlayer / $scope.maxHealth * 100) + '%'};
+        $scope.enemyStyle = {width: ($scope.healthEnemy / $scope.maxHealth * 100) + '%'};
+        $scope.selectedShield = null;
+        $scope.selectedStrike = null;
       }).catch(function (data) {
         
       });
     };
     
     $scope.hitPlayer = function (zone) {
-      if ($scope.healthPlayer <= 0) return;
       $scope.selectedShield = zone;
-      $scope.playerStyle = {width: ($scope.healthPlayer / $scope.maxHealth * 100) + '%'};
     };
     
     $scope.hitEnemy = function (zone) {
-      if ($scope.healthEnemy <= 0) return;
       $scope.selectedStrike = zone;
-      $scope.enemyStyle = {width: ($scope.healthEnemy / $scope.maxHealth * 100) + '%'};
     };
     
     function countDown () {

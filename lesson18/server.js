@@ -433,9 +433,9 @@ app.post('/api/goods/user/:id/wear', function (req, res) {
          healthEnemy:20,
          hitPlayer: 5,
          hitEnemy: 5,
-         timeout: null
+         timeout: 30
        };
-       res.json({error: false, status: "Battle started", data: {} });
+       res.json({error: false, status: "Battle started", data: { timeout: singleBattles[req.session.user.username].timeout } });
      }
    } else {
      res.sendFile(__dirname + '/public/error.html');
@@ -445,22 +445,33 @@ app.post('/api/goods/user/:id/wear', function (req, res) {
  app.post('/api/single-battle/turn', function (req, res) {
    if (req.session.user) {
       var selectedStrike = req.body.selectedStrike *1,
-          selectedShield = req.body.selectedShield *1;
-      var enemyStrike = Math.round(Math.random()*3 + 1),
-          enemyShield = Math.round(Math.random()*3 + 1);
+          selectedShield = req.body.selectedShield *1,
+          enemyStrike = Math.round(Math.random()*3 + 1),
+          enemyShield = Math.round(Math.random()*3 + 1),
+          status;
       if (selectedStrike === enemyShield) {
         singleBattles[req.session.user.username].healthEnemy--;
       } else {
-        singleBattles[req.session.user.username].healthEnemy =- 5;
+        singleBattles[req.session.user.username].healthEnemy -= 5;
       }
       if (selectedShield === enemyStrike) {
         singleBattles[req.session.user.username].healthPlayer--;
       } else {
-        singleBattles[req.session.user.username].healthPlayer =- 5;
+        singleBattles[req.session.user.username].healthPlayer -= 5;
       }
-      res.json({error: false, status: "Turh done", data: {
+      status = (singleBattles[req.session.user.username].healthEnemy <= 0 
+             || singleBattles[req.session.user.username].healthPlayer <= 0) 
+              ? 'finish' 
+              : 'next';
+      res.json({
+        error: false, status: status, 
+        data: {
+          enemyStrike: enemyStrike,
+          enemyShield: enemyShield,
           healthEnemy: singleBattles[req.session.user.username].healthEnemy, 
-          healthPlayer: singleBattles[req.session.user.username].healthPlayer} 
+          healthPlayer: singleBattles[req.session.user.username].healthPlayer,
+          timeout: 30
+        } 
       });
    } else {
      res.sendFile(__dirname + '/public/error.html');
