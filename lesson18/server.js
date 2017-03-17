@@ -446,33 +446,58 @@ app.post('/api/goods/user/:id/wear', function (req, res) {
    if (req.session.user) {
       var selectedStrike = req.body.selectedStrike *1,
           selectedShield = req.body.selectedShield *1,
-          enemyStrike = Math.round(Math.random()*3 + 1),
-          enemyShield = Math.round(Math.random()*3 + 1),
-          status;
+          enemyStrike = Math.round(Math.random()*2 + 1),
+          enemyShield = Math.round(Math.random()*2 + 1),
+          status, username = req.session.user.username, data;
       if (selectedStrike === enemyShield) {
-        singleBattles[req.session.user.username].healthEnemy--;
+        singleBattles[username].healthEnemy--;
       } else {
-        singleBattles[req.session.user.username].healthEnemy -= 5;
+        singleBattles[username].healthEnemy -= 5;
       }
       if (selectedShield === enemyStrike) {
-        singleBattles[req.session.user.username].healthPlayer--;
+        singleBattles[username].healthPlayer--;
       } else {
-        singleBattles[req.session.user.username].healthPlayer -= 5;
+        singleBattles[username].healthPlayer -= 5;
       }
-      status = (singleBattles[req.session.user.username].healthEnemy <= 0 
-             || singleBattles[req.session.user.username].healthPlayer <= 0) 
+      status = (singleBattles[username].healthEnemy <= 0 
+             || singleBattles[username].healthPlayer <= 0) 
               ? 'finish' 
               : 'next';
+      data = {
+        enemyStrike:  enemyStrike,
+        enemyShield:  enemyShield,
+        healthEnemy:  singleBattles[username].healthEnemy, 
+        healthPlayer: singleBattles[username].healthPlayer,
+        timeout: 30
+      }; 
       res.json({
         error: false, status: status, 
-        data: {
-          enemyStrike: enemyStrike,
-          enemyShield: enemyShield,
-          healthEnemy: singleBattles[req.session.user.username].healthEnemy, 
-          healthPlayer: singleBattles[req.session.user.username].healthPlayer,
-          timeout: 30
-        } 
+        data: data
       });
+      console.log('+ ' +username + ' made turn: ', data, status);
+      if (status === 'finish') {
+        User.findOne({ username: username}, function (err, user) {
+          if (err) {
+            console.log('mongodb error', err);
+          } else {
+            if (singleBattles[username].healthEnemy === 0 && singleBattles[username].healthPlayer === 0) {
+              // a draw
+              user.stat.draws++;
+              endBattle(user, username);
+            } else {
+              if (singleBattles[username].healthEnemy === 0) {
+                // user wins
+                user.stat.wins++;
+                endBattle(user, username);
+              } else {
+                // user fails
+                user.stat.looses++;
+                endBattle(user, username);
+              }
+            }
+          }
+        });
+      }
    } else {
      res.sendFile(__dirname + '/public/error.html');
    }
@@ -528,4 +553,9 @@ function updateCash (username, newCash) {
       console.log('+ for user ' + username + ' cash increased to ' + newCash);
     }
   });
+}
+
+function endBattle (user,username) {
+  user.save();
+  delete singleBattles[username];
 }
