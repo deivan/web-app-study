@@ -306,6 +306,10 @@ angular.module('app')
     $scope.selectedStrike = null;
     $scope.playerStyle = {};
     $scope.enemyStyle = {};
+    $scope.enemyStrikeShow = true;
+    $scope.enemyShieldShow = true;
+    $scope.enemyStrikeStyle = {};
+    $scope.enemyShieldStyle = {};
     
     $scope.setTab = function (tab) {
       $scope.tab = tab;

@@ -849,6 +849,14 @@ minigames__cr--message {
   background-color: #eee;
 }
 
+.single-battles__player .single-battles__player--blast {
+  position:absolute;
+  width: 80px;
+  height:80px;
+  background-image: url(../images/blast.png);
+  background-size: cover;
+}
+
 .single-battles__content .single-battles__enemy {
   position:absolute;
   top: 70px;
@@ -903,6 +911,14 @@ minigames__cr--message {
   border-top-left-radius: 100px 50px;
   border-bottom-left-radius: 100px 50px;
   background-color: #000;
+}
+
+.single-battles__enemy .single-battles__enemy--blast {
+  position:absolute;
+  width: 80px;
+  height:80px;
+  background-image: url(../images/shield.png);
+  background-size: cover;
 }
 
 .single-battles__status {
