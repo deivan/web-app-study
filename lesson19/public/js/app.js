@@ -37,6 +37,14 @@ angular.module('app',['ngRoute'])
   
   .run(function($rootScope){
     $rootScope.messages = [];
+    $rootScope.finish = {
+      isShow: false,
+      prompt: 'Yuo are looser! Come back later and fight again.'
+    };
+    $rootScope.hideFinish = function () {
+      $rootScope.finish.isShow = false;
+    };
+    
     var socket = new WebSocket('ws://demenkov.dp.ua:8001');
     
     socket.onopen = function() {

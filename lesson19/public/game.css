@@ -999,3 +999,33 @@ minigames__cr--message {
   background-image: url(../images/fight_button.png);
   cursor:pointer;
 }
+
+.modal-battle-finish {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(0,0,222,0.7);
+  z-index: 100;
+  font-size: 32px;
+}
+
+.modal-battle-finish .modal-battle-finish--text {
+  margin: 200px auto;
+  margin-bottom: 0px;
+  width: 300px;
+  padding: 20px 40px;
+  background-color: #fff;
+  color: #008;
+  text-align: center;
+}
+.modal-battle-finish .modal-battle-finish--button {
+  margin: 5px auto;
+  width: 300px;
+  padding: 20px 40px;
+  background-color: #008;
+  color: #fff;
+  text-align: center;
+  cursor:pointer;
+} 
