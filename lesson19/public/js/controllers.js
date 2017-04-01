@@ -297,7 +297,7 @@ angular.module('app')
   
   .controller('SingleBattle', function ($scope, $timeout, appService, $rootScope, $route) {
     $scope.tab = 1;
-    $scope.overlay = [true,true];
+    $scope.overlay = true;
     $scope.healthPlayer = 20;
     $scope.healthEnemy = 20;
     $scope.maxHealth = 20;
@@ -320,15 +320,16 @@ angular.module('app')
       { top: '115px', left: '110px' },
       { top: '115px', left: '30px' }
     ];
-    
-    $scope.setTab = function (tab) {
-      $scope.tab = tab;
-    };
-    
+    $scope.playerMoving = { top: '70px' };
+    $scope.enemyMoving =  { top: '70px' };
+       
     $scope.startGame = function (tab) {
       appService.startSingleBattle().then(function (data) {
-        $scope.overlay[tab] = false;
+        $scope.overlay = false;
         $scope.battleTimer = $timeout(countDown, 1000);
+        $scope.$on("$locationChangeStart", function(event){
+          event.preventDefault();
+        });
       }).catch(function (data) {
         
       });
@@ -351,10 +352,12 @@ angular.module('app')
         $scope.enemyShieldShow = true;
         $scope.enemyStrikeStyle = $scope.strikeStyles[data.data.enemyStrike];
         $scope.enemyShieldStyle = $scope.shieldStyles[data.data.enemyShield];
+        $scope.playerMoving = { top: (Math.random()*60 + 40) + 'px' };
+        $scope.enemyMoving =  { top: (Math.random()*60 + 40) + 'px' };
         
         if (data.status === 'finish') {
           $rootScope.finish.isShow = true;
-          $scope.overlay = [true,true];
+          $scope.overlay = true;
           if ($scope.healthPlayer === 0 && $scope.healthEnemy === 0) {
             $rootScope.finish.prompt = 'The game was finished as draw. Not bad.';
           } else {
