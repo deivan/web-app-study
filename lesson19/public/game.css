@@ -781,7 +781,7 @@ minigames__cr--message {
   left:0px;
   width:100%;
   height:100%;
-  background-color: rgba(128,128,128,0.7);
+  background-color: #888;
   background-image: url(../images/play_button.png);
   background-repeat: no-repeat;
   background-position: center;
@@ -794,6 +794,10 @@ minigames__cr--message {
   left:20px;
   width: 200px;
   height: 300px;
+  transition: top .3s;
+  animation-name: moveLeftBird;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
 }
 
 .single-battles__player--wings, .single-battles__player--body, 
@@ -863,6 +867,10 @@ minigames__cr--message {
   right:20px;
   width: 200px;
   height: 300px;
+  transition: top .3s;
+  animation-name: moveRightBird;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
 }
 
 .single-battles__enemy--wings, .single-battles__enemy--body, 
@@ -1029,3 +1037,27 @@ minigames__cr--message {
   text-align: center;
   cursor:pointer;
 } 
+
+/*  ======== animations ========== */
+
+@keyframes moveLeftBird {
+    0%   { top: 75px; left: 20px; }
+    15%  { top: 80px; left: 22px; } 
+    30%  { top: 85px; left: 24px; }
+    45%  { top: 90px; left: 22px; }
+    60%  { top: 85px; left: 20px; }
+    75%  { top: 80px; left: 18px; }
+    90%  { top: 75px; left: 16px;}
+    100% { top: 70px; left: 18px;}
+}
+
+@keyframes moveRightBird {
+    0%   { top: 75px; right: 20px; }
+    15%  { top: 80px; right: 22px; } 
+    30%  { top: 85px; right: 24px; }
+    45%  { top: 90px; right: 22px; }
+    60%  { top: 85px; right: 20px; }
+    75%  { top: 80px; right: 18px; }
+    90%  { top: 75px; right: 16px;}
+    100% { top: 70px; right: 18px;}
+}

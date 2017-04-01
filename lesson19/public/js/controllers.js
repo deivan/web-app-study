@@ -357,7 +357,6 @@ angular.module('app')
         
         if (data.status === 'finish') {
           $rootScope.finish.isShow = true;
-          $scope.overlay = true;
           if ($scope.healthPlayer === 0 && $scope.healthEnemy === 0) {
             $rootScope.finish.prompt = 'The game was finished as draw. Not bad.';
           } else {
