@@ -295,7 +295,7 @@ angular.module('app')
     }
   })
   
-  .controller('SingleBattle', function ($scope, $timeout, appService, $rootScope) {
+  .controller('SingleBattle', function ($scope, $timeout, appService, $rootScope, $route) {
     $scope.tab = 1;
     $scope.overlay = [true,true];
     $scope.healthPlayer = 20;
@@ -355,6 +355,13 @@ angular.module('app')
         if (data.status === 'finish') {
           $rootScope.finish.isShow = true;
           $scope.overlay = [true,true];
+          if ($scope.healthPlayer === 0 && $scope.healthEnemy === 0) {
+            $rootScope.finish.prompt = 'The game was finished as draw. Not bad.';
+          } else {
+            if ($scope.healthPlayer !== 0) {
+              $rootScope.finish.prompt = 'You are the Champion, my friend!';
+            }
+          }
         } else {
           setTimeout(function () {
             $scope.enemyStrikeShow = false;
@@ -366,6 +373,11 @@ angular.module('app')
       }).catch(function (data) {
         
       });
+    };
+    
+    $scope.hideFinish = function () {
+      $rootScope.finish.isShow = false;
+      $route.reload();
     };
     
     $scope.hitPlayer = function (zone) {

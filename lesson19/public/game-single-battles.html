@@ -46,3 +46,8 @@
   2222
   <div class="single-battles__overlay" ng-click="startGame(1)" ng-show="overlay[1]"></div>
 </div>
+
+      <div class="modal-battle-finish" ng-show="finish.isShow">
+        <div class="modal-battle-finish--text">{{finish.prompt}}</div>
+        <div class="modal-battle-finish--button" ng-click="hideFinish()">OK</div>
+      </div>
