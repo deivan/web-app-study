@@ -399,4 +399,8 @@ angular.module('app')
         $scope.makeTurn();
       }
     }
+  })
+  
+  .controller('SingleBattleDuel', function ($scope, $timeout, appService, $rootScope, $route) {
+  
   });

@@ -29,9 +29,13 @@ angular.module('app',['ngRoute'])
         templateUrl : 'game-minigames-crazyrace.html',
         controller: 'MinigamesCRPage'
       })
-      .when('/single', {
+      .when('/single/bot', {
         templateUrl : 'game-single-battles.html',
         controller: 'SingleBattle'
+      })
+      .when('/single/duel', {
+        templateUrl : 'game-single-battles-duel.html',
+        controller: 'SingleBattleDuel'
       });
   })
   
