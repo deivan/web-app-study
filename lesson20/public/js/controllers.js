@@ -216,6 +216,8 @@ angular.module('app')
     $scope.attack = 1;
     $scope.defence = 1;
     $scope.pocket = {};
+    $scope.wearedGun = null;
+    $scope.wearedShield = null;
     
     appService.getMarketGoods().then(function (data){
       $scope.market = data.data;
@@ -231,39 +233,20 @@ angular.module('app')
     };
     
     $scope.wearItem = function (item) {
-      appService.wearGood({
-        id: item.id,
-        weared: true
-      }).then(function (data) {
-        if ($scope.body[item.type].id === undefined) {
-          $scope.body[item.type] = {
-            id: item.id,
-            image: item.image
-          };
-          $scope.pocket[item.id].weared = true;
-          if (item.type === 'gun') {
-            $scope.attack = 1 + item.power;
-          } else {
-            $scope.defence = 1 + item.power;
-          }
-        }
-      });
+      var style = { 'background-image': 'url(../' + item.image + ')' };
+      if (item.type === 'gun') {
+        $scope.wearedGun = style;
+      } else {
+        $scope.wearedShield = style;
+      }
     };
     
     $scope.unwear = function (key) {
-      if ($scope.body[key].id === undefined) return;
-      appService.wearGood({
-        id: $scope.body[key].id,
-        weared: false
-      }).then(function (data) {
-        $scope.pocket[$scope.body[key].id].weared = false;
-        $scope.body[key]= {};
-        if (key === 'gun') {
-          $scope.attack = 1;
-        } else {
-          $scope.defence = 1;
-        }
-      });
+      if (key === 'gun') {
+        $scope.wearedGun = null;
+      } else {
+        $scope.wearedShield = null;
+      }
     };
     
     function preparePocket (data) {
