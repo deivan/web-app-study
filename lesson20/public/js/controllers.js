@@ -210,14 +210,18 @@ angular.module('app')
   .controller('EquipmentPage', function ($scope, appService) {
     
     $scope.body = {
-      gun: {},
-      shield: {}
+      gun: {
+        weared: null,
+        id: null
+      },
+      shield: {
+        weared: null,
+        id: null
+      }
     };
     $scope.attack = 1;
     $scope.defence = 1;
     $scope.pocket = {};
-    $scope.wearedGun = null;
-    $scope.wearedShield = null;
     
     appService.getMarketGoods().then(function (data){
       $scope.market = data.data;
@@ -233,20 +237,16 @@ angular.module('app')
     };
     
     $scope.wearItem = function (item) {
+      if ($scope.body[item.type].weared !== null) return;
       var style = { 'background-image': 'url(../' + item.image + ')' };
-      if (item.type === 'gun') {
-        $scope.wearedGun = style;
-      } else {
-        $scope.wearedShield = style;
-      }
+      $scope.body[item.type].weared = style;
+      $scope.body[item.type].id = item.id;      
+      $scope.pocket[item.id].weared = true;
     };
     
     $scope.unwear = function (key) {
-      if (key === 'gun') {
-        $scope.wearedGun = null;
-      } else {
-        $scope.wearedShield = null;
-      }
+      $scope.body[key].weared = null;
+      $scope.pocket[$scope.body[key].id].weared = false;
     };
     
     function preparePocket (data) {
