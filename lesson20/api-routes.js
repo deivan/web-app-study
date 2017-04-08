@@ -2,6 +2,7 @@ var User = require('./models').User;
 var Conv = require('./models').Conv;
 var Goods = require('./models').Goods;
 var UserGoods = require('./models').UserGoods;
+var singleBattles = {};
 
 exports.getUser = function (req, res) {
   if (req.session.user) {
