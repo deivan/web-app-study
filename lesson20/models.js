@@ -67,9 +67,7 @@ var schemaGoods = new Schema({
 
 var schemaUserGoods = new Schema({
   username: {
-    type: String,
-    unique: true,
-    required: true
+    type: String
   },
   id: {
     type: Number
@@ -95,7 +93,7 @@ var schemaUserGoods = new Schema({
 var User = mongoose.model('User', schemaUser);
 var Conv = mongoose.model('Conv', schemaConversation);
 var Goods = mongoose.model('Goods', schemaGoods);
-var UserGoods = mongoose.model('user-goods', schemaUserGoods);
+var UserGoods = mongoose.model('UserGoods', schemaUserGoods);
 
 module.exports = {
   User: User,

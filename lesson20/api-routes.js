@@ -218,15 +218,59 @@ exports.getGoods = function (req, res) {
 exports.getUserGoods = function (req, res) {
   var pocket ={};
    if (req.session.user) {
-    User.findOne({ username: req.session.user.username}, function (err, user) {
+    UserGoods.find({ username: req.session.user.username}, function (err, userGoods) {
       if (err) {
         console.log('mongodb error', err);
       } else {
-        for (var i = 0; i < user.goods.length; i++)
-          pocket[user.goods[i].id] = user.goods[i];
-        res.json({error: false, status: "All goods from user", data: pocket });
+        res.json({error: false, status: "All goods from user", data: userGoods });
       }
     });      
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
+  }
+};
+
+exports.buyGood = function (req, res) {
+  var id = 1 * req.params.id;
+  if (req.session.user) {
+    Goods.findOne({ id:id }, function (err, good) {
+      if (err) {
+        console.log('mongodb error', err);
+      } else {
+        User.findOne({ username: req.session.user.username}, function (err, user) {
+          if (err) {
+            console.log('mongodb error', err);
+          } else {
+            if (user.cash >= good.price) {
+              var userGood;
+              user.cash -= good.price;
+              user.save();
+              UserGoods.create({
+                username: req.session.user.username,
+                id: good.id,
+                type: good.type,
+                title: good.title,
+                image: good.image,
+                description: good.description,
+                power: good.power,
+                price: good.price,
+                time: good.time,
+                weared: false
+              }, function (err, userGood) {
+                if (err) {
+                  console.log('mongodb error', err);
+                } else {
+                  res.json({error: false, status: "Item bought", data: userGood });
+                }
+              });
+              
+            } else {
+              res.json({error: true, status: "You have no money to this item", data: {} });
+            }
+          }
+        });
+      }
+    });    
   } else {
     res.sendFile(__dirname + '/public/error.html');
   }
@@ -235,8 +279,8 @@ exports.getUserGoods = function (req, res) {
 exports.wearGood = function (req, res) {
   var id = 1 * req.params.id, weared = req.body.weared;
     if (req.session.user) {
-      User.findOneAndUpdate({ username: req.session.user.username, 'goods.id': id },
-        {'$set': { 'goods.$.weared': weared }}, { upsert: true },
+      UserGoods.findOneAndUpdate({ username: req.session.user.username, 'id': id },
+        { weared: weared }, { upsert: true },
         function (err, result) {
           if (err) {
             console.log('mongodb error', err);

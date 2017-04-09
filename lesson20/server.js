@@ -117,20 +117,21 @@ app.post('/signup', function (req, res) {
 
 // API methods
 
-app.get('/api/user', Api.getUser);
+app.get( '/api/user', Api.getUser);
 app.post('/api/user', Api.updateUser);
 app.get('/api/users', Api.getUsers);
 
-app.get('/api/conversations', Api.getConversations);
+app.get( '/api/conversations', Api.getConversations);
 app.post('/api/conversations', Api.newConversation);
-app.get('/api/conversation/:id', Api.getConversation);
+app.get( '/api/conversation/:id', Api.getConversation);
 app.post('/api/conversation/:id', Api.sendConversation);
 
 app.post('/api/luckystones', Api.playLuckyStones);
 app.post('/api/crazyrace', Api.playCrazyRace);
 
-app.get('/api/goods', Api.getGoods);
-app.get('/api/goods/user', Api.getUserGoods);
+app.get( '/api/goods', Api.getGoods);
+app.get( '/api/goods/user', Api.getUserGoods);
+app.post('/api/goods/user/:id/buy', Api.buyGood);
 app.post('/api/goods/user/:id/wear', Api.wearGood);
  
  app.post('/api/single-battle/start', Api.startBattle);

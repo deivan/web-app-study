@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('mainPage', function ($scope, $rootScope,appService) {
+  .controller('mainPage', function ($scope, $rootScope) {
     $rootScope.isShowLoading = false;
     $scope.chatMessage = '';
     $scope.isChatClosed = true;
@@ -227,13 +227,24 @@ angular.module('app')
       $scope.market = data.data;
       return appService.getUserGoods();
     }).then(function (data) {
-      preparePocket(data.data);
+      for (var i = 0; i < data.data.length; i++) {
+        $scope.pocket[data.data[i].id] = data.data[i];
+        if ($scope.pocket[data.data[i].id].weared) {
+          $scope.wearItem(data.data[i]);
+        }
+      }
     });
     
     $scope.buyItem = function (item) {
       if($scope.pocket[item.id] !== undefined && $scope.pocket[item.id].weared === true) return;
-      $scope.pocket[item.id] = item;
-      $scope.pocket[item.id].weared = false;
+      appService.buyGood(item.id).then(function (data) {
+        if (data.error) {
+          console.log(data.status);
+        } else {
+          $scope.pocket[item.id] = data.data;
+          $scope.pocket[item.id].weared = false;
+        }
+      });
     };
     
     $scope.wearItem = function (item) {
@@ -242,40 +253,14 @@ angular.module('app')
       $scope.body[item.type].weared = style;
       $scope.body[item.type].id = item.id;      
       $scope.pocket[item.id].weared = true;
+      appService.wearGood(item);
     };
     
     $scope.unwear = function (key) {
       $scope.body[key].weared = null;
       $scope.pocket[$scope.body[key].id].weared = false;
+      appService.wearGood($scope.pocket[$scope.body[key].id]);
     };
-    
-    function preparePocket (data) {
-      for (var key in data) {
-        var current = data[key];
-        for (var i = 0; i < $scope.market.length; i++) {
-          var m = $scope.market[i];
-          if (m.id == key) {
-            $scope.pocket[key] = {
-              id: key,
-              description: m.description,
-              image: m.image,
-              power: m.power,
-              price: m.price,
-              title: m.title,
-              type: m.type,
-              time: current.time,
-              weared: current.weared
-            };
-            if (current.weared) {
-              $scope.body[m.type] = {
-                id: m.id,
-                image: m.image
-              };
-            }
-          }
-        }
-      }
-    }
   })
   
   .controller('SingleBattle', function ($scope, $timeout, appService, $rootScope, $route) {
