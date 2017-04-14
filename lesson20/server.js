@@ -4,8 +4,6 @@ var bodyParser  = require('body-parser');
 var session = require('express-session');
 var port = process.env.PORT || 3000;
 var Api = require('./api-routes');
-
-var singleBattles = {};
  
 var User = require('./models').User;
 var Conv = require('./models').Conv;

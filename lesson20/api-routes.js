@@ -292,22 +292,38 @@ exports.wearGood = function (req, res) {
  };
  
  exports.startBattle = function (req, res) {
-   if (req.session.user) {
-     if (singleBattles[req.session.user.username] !== undefined) {
-       res.json({error: true, status: "Battle exist", data: {} });
-     } else {
-       singleBattles[req.session.user.username] = {
-         healthPlayer: 20,
-         healthEnemy:20,
-         hitPlayer: 5,
-         hitEnemy: 5,
-         timeout: 30
-       };
-       res.json({error: false, status: "Battle started", data: { timeout: singleBattles[req.session.user.username].timeout } });
-     }
-   } else {
-     res.sendFile(__dirname + '/public/error.html');
-   }
+    if (req.session.user) {
+      if (singleBattles[req.session.user.username] !== undefined) {
+        res.json({error: true, status: "Battle exist", data: {} });
+      } else {
+        UserGoods.find({ username: req.session.user.username, weared: true }, function (err, goods) {
+          var defence = 0, attack = 0;
+          if (err) {
+           console.log('mongodb error', err);
+          } else {
+            if (goods.length > 0) {
+              for (var i = 0; i < goods.length; i++) {
+                if (goods[i].type === 'gun') {
+                  attack = goods[i].power;
+                } else {
+                  defence = goods[i].power;
+                }
+              }
+            }
+            singleBattles[req.session.user.username] = {
+              healthPlayer: 10 + defence,
+              healthEnemy: 10 + defence,
+              hitPlayer: 1 + attack,
+              hitEnemy: 1 + attack,
+              timeout: 20
+            };
+          }
+          res.json({error: false, status: "Battle started", data: singleBattles[req.session.user.username] });
+        });
+      }
+    } else {
+      res.sendFile(__dirname + '/public/error.html');
+    }
  };
  
  exports.turnBattle = function (req, res) {
@@ -353,7 +369,7 @@ exports.wearGood = function (req, res) {
               user.stat.draws++;
               endBattle(user, username);
             } else {
-              if (singleBattles[username].healthEnemy === 0) {
+              if (singleBattles[username].healthEnemy <= 0) {
                 // user wins
                 user.stat.wins++;
                 endBattle(user, username);

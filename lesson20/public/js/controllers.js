@@ -1,9 +1,16 @@
 angular.module('app')
-  .controller('mainPage', function ($scope, $rootScope) {
+  .controller('mainPage', function ($scope, $rootScope, appService) {
     $rootScope.isShowLoading = false;
     $scope.chatMessage = '';
     $scope.isChatClosed = true;
     $scope.messages = $rootScope.messages;
+    
+    appService.getUser().then(function (response) {
+      $rootScope.profile = response;
+      $rootScope.me = $rootScope.profile.username;
+    }, function (response) {
+      console.log('Error: ',response);
+    });
 
     $rootScope.getMate = function (authors) {
       if (authors[0] == $rootScope.me) {
@@ -43,12 +50,6 @@ angular.module('app')
       });
     };
     
-    appService.getUser().then(function (response) {
-      $rootScope.profile = response;
-      $rootScope.me = $rootScope.profile.username;
-    }, function (response) {
-      console.log('Error: ',response);
-    });
   })
   
   .controller('MessagesPage', function ($scope, $rootScope, appService, $location) {
@@ -207,7 +208,7 @@ angular.module('app')
     
   })
   
-  .controller('EquipmentPage', function ($scope, appService) {
+  .controller('EquipmentPage', function ($scope, $rootScope, appService) {
     
     $scope.body = {
       gun: {
@@ -219,8 +220,8 @@ angular.module('app')
         id: null
       }
     };
-    $scope.attack = 1;
-    $scope.defence = 1;
+    $scope.attack =  !!$rootScope.profile.level ? $rootScope.profile.level : 1;
+    $scope.defence = !!$rootScope.profile.level ? $rootScope.profile.level : 1;
     $scope.pocket = {};
     
     appService.getMarketGoods().then(function (data){
@@ -253,13 +254,25 @@ angular.module('app')
       $scope.body[item.type].weared = style;
       $scope.body[item.type].id = item.id;      
       $scope.pocket[item.id].weared = true;
+      if (item.type === 'gun') {
+        $scope.attack += item.power;
+      } else {
+        $scope.defence += item.power;
+      }
       appService.wearGood(item);
     };
     
     $scope.unwear = function (key) {
       $scope.body[key].weared = null;
       $scope.pocket[$scope.body[key].id].weared = false;
-      appService.wearGood($scope.pocket[$scope.body[key].id]);
+      appService.wearGood($scope.pocket[$scope.body[key].id])
+      .then(function (data) {
+        if (key === 'gun') {
+          $scope.attack =  !!$rootScope.profile.level ? $rootScope.profile.level : 1;
+        }else {
+          $scope.defence = !!$rootScope.profile.level ? $rootScope.profile.level : 1;
+        }
+      });
     };
   })
   
