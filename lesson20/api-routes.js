@@ -297,7 +297,7 @@ exports.wearGood = function (req, res) {
         res.json({error: true, status: "Battle exist", data: {} });
       } else {
         UserGoods.find({ username: req.session.user.username, weared: true }, function (err, goods) {
-          var defence = 0, attack = 0;
+          var defence = 0, attack = 0, gunSkin = null, shieldSkin = null;
           if (err) {
            console.log('mongodb error', err);
           } else {
@@ -305,8 +305,10 @@ exports.wearGood = function (req, res) {
               for (var i = 0; i < goods.length; i++) {
                 if (goods[i].type === 'gun') {
                   attack = goods[i].power;
+                  gunSkin = goods[i].image;
                 } else {
                   defence = goods[i].power;
+                  shieldSkin = goods[i].image;
                 }
               }
             }
@@ -315,7 +317,9 @@ exports.wearGood = function (req, res) {
               healthEnemy: 10 + defence,
               hitPlayer: 1 + attack,
               hitEnemy: 1 + attack,
-              timeout: 20
+              timeout: 20,
+              gunSkin: gunSkin,
+              shieldSkin: shieldSkin
             };
           }
           res.json({error: false, status: "Battle started", data: singleBattles[req.session.user.username] });

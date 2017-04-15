@@ -297,6 +297,8 @@ angular.module('app')
       { top: '115px', left: '110px' },
       { top: '115px', left: '30px' }
     ];
+    $scope.gunSkin = {};
+    $scope.shieldSkin = {};
     $scope.playerMoving = { top: '70px' };
     $scope.enemyMoving =  { top: '70px' };
        
@@ -306,6 +308,12 @@ angular.module('app')
         $scope.healthEnemy = data.data.healthEnemy;
         $scope.maxHealth = data.data.healthPlayer;
         $scope.turnTime = data.data.timeout;
+        $scope.gunSkin = !!data.data.gunSkin 
+                         ? {'background-image': 'url(' + data.data.gunSkin + ')'}
+                         : {};
+        $scope.shieldSkin = !!data.data.shieldSkin 
+                         ? {'background-image': 'url(' + data.data.shieldSkin + ')'}
+                         : {};                 
         $scope.overlay = false;
         $scope.battleTimer = $timeout(countDown, 1000);
         $scope.$on("$locationChangeStart", function(event){

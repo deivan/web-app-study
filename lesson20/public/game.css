@@ -872,7 +872,7 @@ minigames__cr--message {
   left:0px;
   width:105px;
   height:100px;
-  background-color: yellow;
+  background-color: rgba(0,0,0,0);
 }
 
 .single-battles__player .single-battles__player--head {
