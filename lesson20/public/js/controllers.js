@@ -279,10 +279,6 @@ angular.module('app')
   .controller('SingleBattle', function ($scope, $timeout, appService, $rootScope, $route) {
     $scope.tab = 1;
     $scope.overlay = true;
-    $scope.healthPlayer = 20;
-    $scope.healthEnemy = 20;
-    $scope.maxHealth = 20;
-    $scope.turnTime = 30;
     $scope.selectedShield = null;
     $scope.selectedStrike = null;
     $scope.playerStyle = {};
@@ -306,6 +302,10 @@ angular.module('app')
        
     $scope.startGame = function (tab) {
       appService.startSingleBattle().then(function (data) {
+        $scope.healthPlayer = data.data.healthPlayer;
+        $scope.healthEnemy = data.data.healthEnemy;
+        $scope.maxHealth = data.data.healthPlayer;
+        $scope.turnTime = data.data.timeout;
         $scope.overlay = false;
         $scope.battleTimer = $timeout(countDown, 1000);
         $scope.$on("$locationChangeStart", function(event){
@@ -343,6 +343,8 @@ angular.module('app')
           } else {
             if ($scope.healthPlayer !== 0) {
               $rootScope.finish.prompt = 'You are the Champion, my friend!';
+            } else {
+              $rootScope.finish.prompt = 'You are looser! Come back later and fight again.';
             }
           }
         } else {
