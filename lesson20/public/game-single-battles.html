@@ -2,14 +2,14 @@
 
 <div class="single-battles__content">
   <div class="single-battles__player" ng-style="playerMoving">
+    <div class="single-battles__player--wings-skin" ng-style="shieldSkin"></div>
     <div class="single-battles__player--wings" 
          ng-class="{'selected':selectedShield === 1}" 
-         ng-style="shieldSkin"
          ng-click="hitPlayer(1)"></div>
     <div class="single-battles__player--body" ng-class="{'selected':selectedShield === 2}" ng-click="hitPlayer(2)"></div>
+    <div class="single-battles__player--head-skin" ng-style="gunSkin"></div>
     <div class="single-battles__player--head" 
          ng-class="{'selected':selectedShield === 3}" 
-         ng-style="gunSkin"
          ng-click="hitPlayer(3)"></div>
     <div class="single-battles__player--blast" 
          ng-show="enemyStrikeShow" 
