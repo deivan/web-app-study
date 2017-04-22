@@ -3,9 +3,11 @@ angular.module('app')
     return ({
        getUser: getUser,
        updateProfile: updateProfile,
+       
        getMarketGoods: getMarketGoods,
        getUserGoods: getUserGoods,
        wearGood: wearGood,
+       buyGood: buyGood,
        
        getUsers: getUsers,
        
@@ -67,6 +69,16 @@ angular.module('app')
         method: 'post',
         url: '/api/goods/user/' + data.id + '/wear',
         data: { weared: data.weared }
+      });
+      return (request.then( handleSuccess, handleError ));
+    }
+    
+    function buyGood (id) {
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'post',
+        url: '/api/goods/user/' + id + '/buy',
+        data: {}
       });
       return (request.then( handleSuccess, handleError ));
     }

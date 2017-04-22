@@ -218,15 +218,59 @@ exports.getGoods = function (req, res) {
 exports.getUserGoods = function (req, res) {
   var pocket ={};
    if (req.session.user) {
-    User.findOne({ username: req.session.user.username}, function (err, user) {
+    UserGoods.find({ username: req.session.user.username}, function (err, userGoods) {
       if (err) {
         console.log('mongodb error', err);
       } else {
-        for (var i = 0; i < user.goods.length; i++)
-          pocket[user.goods[i].id] = user.goods[i];
-        res.json({error: false, status: "All goods from user", data: pocket });
+        res.json({error: false, status: "All goods from user", data: userGoods });
       }
     });      
+  } else {
+    res.sendFile(__dirname + '/public/error.html');
+  }
+};
+
+exports.buyGood = function (req, res) {
+  var id = 1 * req.params.id;
+  if (req.session.user) {
+    Goods.findOne({ id:id }, function (err, good) {
+      if (err) {
+        console.log('mongodb error', err);
+      } else {
+        User.findOne({ username: req.session.user.username}, function (err, user) {
+          if (err) {
+            console.log('mongodb error', err);
+          } else {
+            if (user.cash >= good.price) {
+              var userGood;
+              user.cash -= good.price;
+              user.save();
+              UserGoods.create({
+                username: req.session.user.username,
+                id: good.id,
+                type: good.type,
+                title: good.title,
+                image: good.image,
+                description: good.description,
+                power: good.power,
+                price: good.price,
+                time: good.time,
+                weared: false
+              }, function (err, userGood) {
+                if (err) {
+                  console.log('mongodb error', err);
+                } else {
+                  res.json({error: false, status: "Item bought", data: userGood });
+                }
+              });
+              
+            } else {
+              res.json({error: true, status: "You have no money to this item", data: {} });
+            }
+          }
+        });
+      }
+    });    
   } else {
     res.sendFile(__dirname + '/public/error.html');
   }
@@ -235,8 +279,8 @@ exports.getUserGoods = function (req, res) {
 exports.wearGood = function (req, res) {
   var id = 1 * req.params.id, weared = req.body.weared;
     if (req.session.user) {
-      User.findOneAndUpdate({ username: req.session.user.username, 'goods.id': id },
-        {'$set': { 'goods.$.weared': weared }}, { upsert: true },
+      UserGoods.findOneAndUpdate({ username: req.session.user.username, 'id': id },
+        { weared: weared }, { upsert: true },
         function (err, result) {
           if (err) {
             console.log('mongodb error', err);
@@ -248,22 +292,42 @@ exports.wearGood = function (req, res) {
  };
  
  exports.startBattle = function (req, res) {
-   if (req.session.user) {
-     if (singleBattles[req.session.user.username] !== undefined) {
-       res.json({error: true, status: "Battle exist", data: {} });
-     } else {
-       singleBattles[req.session.user.username] = {
-         healthPlayer: 20,
-         healthEnemy:20,
-         hitPlayer: 5,
-         hitEnemy: 5,
-         timeout: 30
-       };
-       res.json({error: false, status: "Battle started", data: { timeout: singleBattles[req.session.user.username].timeout } });
-     }
-   } else {
-     res.sendFile(__dirname + '/public/error.html');
-   }
+    if (req.session.user) {
+      if (singleBattles[req.session.user.username] !== undefined) {
+        res.json({error: true, status: "Battle exist", data: {} });
+      } else {
+        UserGoods.find({ username: req.session.user.username, weared: true }, function (err, goods) {
+          var defence = 0, attack = 0, gunSkin = null, shieldSkin = null;
+          if (err) {
+           console.log('mongodb error', err);
+          } else {
+            if (goods.length > 0) {
+              for (var i = 0; i < goods.length; i++) {
+                if (goods[i].type === 'gun') {
+                  attack = goods[i].power;
+                  gunSkin = goods[i].image;
+                } else {
+                  defence = goods[i].power;
+                  shieldSkin = goods[i].image;
+                }
+              }
+            }
+            singleBattles[req.session.user.username] = {
+              healthPlayer: 10 + defence,
+              healthEnemy: 10 + defence,
+              hitPlayer: 1 + attack,
+              hitEnemy: 1 + attack,
+              timeout: 20,
+              gunSkin: gunSkin,
+              shieldSkin: shieldSkin
+            };
+          }
+          res.json({error: false, status: "Battle started", data: singleBattles[req.session.user.username] });
+        });
+      }
+    } else {
+      res.sendFile(__dirname + '/public/error.html');
+    }
  };
  
  exports.turnBattle = function (req, res) {
@@ -309,7 +373,7 @@ exports.wearGood = function (req, res) {
               user.stat.draws++;
               endBattle(user, username);
             } else {
-              if (singleBattles[username].healthEnemy === 0) {
+              if (singleBattles[username].healthEnemy <= 0) {
                 // user wins
                 user.stat.wins++;
                 endBattle(user, username);

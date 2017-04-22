@@ -855,6 +855,18 @@ minigames__cr--message {
   box-shadow: 0 0 20px 10px rgba(0,255,0,0.9);
 }
 
+.single-battles__player .single-battles__player--wings-skin {
+  position:absolute;
+  top:104px;
+  left:-96px;
+  width:302px;
+  height:102px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  background-color:aquamarine;
+  transform: rotate(90deg);
+}
+
 .single-battles__player .single-battles__player--wings {
   position:absolute;
   top:0px;
@@ -863,7 +875,7 @@ minigames__cr--message {
   height:300px;
   border-top-left-radius: 100px;
   border-bottom-left-radius: 100px;
-  background-color:aquamarine;
+  background-color: rgba(0,0,0,0);
 }
 
 .single-battles__player .single-battles__player--body {
@@ -872,18 +884,30 @@ minigames__cr--message {
   left:0px;
   width:105px;
   height:100px;
-  background-color: yellow;
+  background-color: rgba(0,0,0,0);
+}
+
+.single-battles__player .single-battles__player--head-skin {
+  position:absolute;
+  top:103px;
+  left:107px;
+  width:105px;
+  height:105px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  background-color: #eee;
+  transform: rotate(90deg);
 }
 
 .single-battles__player .single-battles__player--head {
   position:absolute;
   top:100px;
   left:105px;
-  width:50px;
+  width:100px;
   height:100px;
-  border-top-right-radius: 100px 50px;
-  border-bottom-right-radius: 100px 50px;
-  background-color: #eee;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background-color: rgba(0,0,0,0);
 }
 
 .single-battles__player .single-battles__player--blast {
@@ -946,11 +970,11 @@ minigames__cr--message {
 .single-battles__enemy .single-battles__enemy--head {
   position:absolute;
   top:100px;
-  left:45px;
-  width:50px;
+  left:-5px;
+  width:100px;
   height:100px;
-  border-top-left-radius: 100px 50px;
-  border-bottom-left-radius: 100px 50px;
+  border-top-left-radius: 50px 50px;
+  border-bottom-left-radius: 50px 50px;
   background-color: #000;
 }
 
