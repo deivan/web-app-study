@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'playfair';
-  src: url(fonts/playfair.ttf);
+  src: url(../fonts/playfair.ttf);
 }
 
 @font-face {
   font-family: 'shrikhand';
-  src: url(fonts/shrikhand-regular.ttf) format('truetype');
+  src: url(../fonts/shrikhand-regular.ttf) format('truetype');
 }
 
 body {
@@ -13,7 +13,7 @@ body {
     margin: 0;
     color: #fff;
     font-size: 15px;
-    background-image: url(images/best_place.jpg);
+    background-image: url(../images/best_place.jpg);
     background-size: cover;
     font-family: playfair;
 }
@@ -36,7 +36,7 @@ h1, h2, h3,h4, h5 {
 .main__logotype {
     width: 100%;
     height: 200px;
-    background-image: url(images/sinichka_back.jpg);
+    background-image: url(../images/sinichka_back.jpg);
 }
 
 .main__logotype img {

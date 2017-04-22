@@ -113,6 +113,10 @@ app.post('/signup', function (req, res) {
     });  
 });
 
+app.get('/admin', function (req, res) {
+  res.sendFile(__dirname + '/public/admin_login.html');
+});
+
 // API methods
 
 app.get( '/api/user', Api.getUser);

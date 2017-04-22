@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'playfair';
+  src: url(../fonts/playfair.ttf);
+}
+
+@font-face {
+  font-family: 'shrikhand';
+  src: url(../fonts/shrikhand-regular.ttf) format('truetype');
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    font-size: 15px;
+    background-image: url(../images/best_place.jpg);
+    background-size: cover;
+    font-family: playfair;
+}
+
+.main {
+    position: relative;
+    width:300px;
+    height: 300px;
+    overflow-y: auto;
+    margin: 120px auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    background-color: #333;
+}
