@@ -66,12 +66,20 @@ app.post('/login', function (req, res) {
       if (!user) {
         res.sendFile(__dirname + '/public/error.html');
       } else {
-        console.log('user:', user)
-        if (user.password != req.body.password) {
-          res.sendFile(__dirname + '/public/error.html');
+        if (user.status === 0) {
+          res.render('banned', { time: user.banTime});
         } else {
-          req.session.user = user;
-          res.redirect('/game');
+          console.log('user:', user)
+          if (user.password != req.body.password) {
+            res.sendFile(__dirname + '/public/error.html');
+          } else {
+            user.lastLogin = new Date();
+            user.lastLoginIP = req.ip;
+            user.lastLoginUA = req.headers['user-agent'];
+            user.save();
+            req.session.user = user;
+            res.redirect('/game');
+          }
         }
       }
   });
@@ -114,7 +122,26 @@ app.post('/signup', function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-  res.sendFile(__dirname + '/public/admin_login.html');
+  if (!!req.session && !!req.session.admin) {
+    res.sendFile(__dirname + '/public/admin_zone.html');
+  } else {
+    res.render('admin_login', { error: false });
+  }
+});
+
+app.post('/admin', function (req, res) {
+  User.findOne({
+    username: req.body.username, password: req.body.password, status:2
+  }, function(err, user) {
+    if (err) throw err;
+    if (!user) {
+      res.render('admin_login', { error: true});
+    } else {
+      req.session.user = user;
+      req.session.admin = true;
+      res.sendFile(__dirname + '/public/admin_zone.html');
+    }
+  });
 });
 
 // API methods

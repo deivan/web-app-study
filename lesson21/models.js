@@ -29,6 +29,10 @@ var schemaUser = new Schema({
     looses:{ type: Number, default: 0 },
     draws: { type: Number, default: 0 }
   },
+  lastLogin:   { type: Date, default: 1 },
+  lastLoginIP: { type: String, default: '' },
+  lastLoginUA: { type: String, default: '' },
+  banTime: { type: Date, default: 1 },
   state: { type: Number, default: 0 }
 });
 
