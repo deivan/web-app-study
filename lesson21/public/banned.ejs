@@ -12,11 +12,26 @@
                 <h1>You are banned. You was a bad boy (girl).</h1>
                 <p> You banned to: 
                   <%= 
-                  ( time.getHours() + 
-                    ':' + time.getMinutes() + 
-                    ' ' + time.getDate() + 
-                    '-' + (1 + time.getMonth()) + 
-                    '-' + time.getFullYear() )
+                  ( (
+                     time.getHours() < 10 
+                      ? '0'+ time.getHours() 
+                      : time.getHours()
+                     ) + 
+                    ':' + (
+                            time.getMinutes() < 10 
+                              ? '0' + time.getMinutes() 
+                              : time.getMinutes()
+                          ) + 
+                    ' ' + (
+                            time.getDate() < 10 
+                              ? '0' + time.getDate() 
+                              : time.getDate()
+                          ) + 
+                    '-' + ( time.getMonth() < 9 
+                            ? '0' + (1 + time.getMonth())
+                            : (1 + time.getMonth())
+                          ) 
+                    + '-' + time.getFullYear() )
                   %></p>
                 <p>I hope you will change your behavior in future.</p>
                 <p>And now, let see this amazing kitten!</p>
