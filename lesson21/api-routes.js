@@ -459,7 +459,7 @@ exports.adminUsers = function (req, res) {
           });
         res.json({
           error: false, status: 'OK', 
-          data: { users: filteredUsers }
+          data: filteredUsers
         });
       }
     });
