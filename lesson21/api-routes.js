@@ -2,14 +2,14 @@ var User = require('./models').User;
 var Conv = require('./models').Conv;
 var Goods = require('./models').Goods;
 var UserGoods = require('./models').UserGoods;
-var singleBattles = {};
+var singleBattles = {}, startTime = new Date();
 
 exports.getUser = function (req, res) {
   if (req.session.user) {
     User.findOne({
       username: req.session.user.username
     }, function(err, user) {
-        if (err) throw err;
+        if (err) res.status(500).send('Mongo error:', err);
         if (!user) {
           res.json({error: true, status: 'User not found.'});
         } else {
@@ -35,7 +35,7 @@ exports.updateUser = function (req, res) {
       if (!err) {
         res.json({error: false, status: 'Profile updated successfully.'});
       } else {
-        res.json({error: true, status: "Can't update profile data"});
+        res.status(500).send('Mongo error:', err);
       }
     }); 
   } else {
@@ -53,7 +53,7 @@ exports.getUsers = function (req, res) {
           names.push({username: users[i].username});
         res.json({error: false, status: 'Got usernames', data: names});
       } else {
-        res.json({error: true, status: "Can't get userlist"});
+        res.status(500).send('Mongo error:', err);
       }
     }); 
   } else {
@@ -68,7 +68,7 @@ exports.getConversations = function (req, res) {
       if (!err) {
         res.json({error: false, status: 'Got conversations', data: conversations});
       } else {
-        res.json({error: true, status: "Can't get userlist"});
+        res.status(500).send('Mongo error:', err);
       }
     }); 
   } else {
@@ -96,11 +96,12 @@ exports.newConversation = function (req, res) {
           }, { safe: true, upsert: true},
           function (err, model) {
               console.log('error', err);
+              res.status(500).send('Mongo error:', err);
           });
           res.json({error: false, status: "Conversation with user " + convUser + " is exists", data: conversations[0]});          
         }
       } else {
-        res.json({error: true, status: "Conversation with user " + convUser + " failed"});
+        res.status(500).send('Mongo error:', err);
       }
     }); 
   } else {
@@ -117,7 +118,7 @@ exports.getConversation = function (req, res) {
       if (!err) {
         res.json({error: false, status: 'Got conversation with ' + _id, data: conversation});
       } else {
-        res.json({error: true, status: "Can't get conversation for " + _id});
+        res.status(500).send('Mongo error:', err);
       }
     }); 
   } else {
@@ -137,7 +138,7 @@ exports.sendConversation = function (req, res) {
       function (err, result) {
         if (err) {
           console.log('error', err);
-          res.json({error: true, status: "Error when adding message at conversation " + _id, data: err });            
+          res.status(500).send('Mongo error:', err);
         } else {
           res.json({error: false, status: "Added message to conversation " + _id, data: result });            
         }
@@ -165,12 +166,13 @@ exports.playLuckyStones = function (req, res) {
       User.findOne({ username: req.session.user.username}, function (err, user) {
         if (err) {
           console.log('mongodb error', err);
+          res.status(500).send('Mongo error:', err);
         } else {
           updateCash(req.session.user.username, user.cash + cash);
+          res.json({ error: false, status: "Game started", data: results });
         }
       });
     }
-    res.json({ error: false, status: "Game started", data: results });
   } else {
     res.sendFile(__dirname + '/public/error.html');
   }
@@ -182,6 +184,7 @@ exports.playCrazyRace = function (req, res) {
     User.findOne({ username: req.session.user.username}, function (err, user) {
       if (err) {
         console.log('mongodb error', err);
+        res.status(500).send('Mongo error:', err);
       } else {
         if (bet <= user.cash) {
           result = getCrazyRaces();
@@ -206,6 +209,7 @@ exports.getGoods = function (req, res) {
     Goods.find({}, function (err, goods) {
       if (err) {
         console.log('mongodb error', err);
+        res.status(500).send('Mongo error:', err);
       } else {
         res.json({error: false, status: "All goods from market", data: goods });
       }
@@ -221,6 +225,7 @@ exports.getUserGoods = function (req, res) {
     UserGoods.find({ username: req.session.user.username}, function (err, userGoods) {
       if (err) {
         console.log('mongodb error', err);
+        res.status(500).send('Mongo error:', err);
       } else {
         res.json({error: false, status: "All goods from user", data: userGoods });
       }
@@ -236,10 +241,12 @@ exports.buyGood = function (req, res) {
     Goods.findOne({ id:id }, function (err, good) {
       if (err) {
         console.log('mongodb error', err);
+        res.status(500).send('Mongo error:', err);
       } else {
         User.findOne({ username: req.session.user.username}, function (err, user) {
           if (err) {
             console.log('mongodb error', err);
+            res.status(500).send('Mongo error:', err);
           } else {
             if (user.cash >= good.price) {
               var userGood;
@@ -284,6 +291,7 @@ exports.wearGood = function (req, res) {
         function (err, result) {
           if (err) {
             console.log('mongodb error', err);
+            res.status(500).send('Mongo error:', err);
           } else {
             res.json({error: false, status: "Item " + id + " weared:" + weared, data: result });
           }
@@ -300,6 +308,7 @@ exports.wearGood = function (req, res) {
           var defence = 0, attack = 0, gunSkin = null, shieldSkin = null;
           if (err) {
            console.log('mongodb error', err);
+           res.status(500).send('Mongo error:', err);
           } else {
             if (goods.length > 0) {
               for (var i = 0; i < goods.length; i++) {
@@ -321,8 +330,8 @@ exports.wearGood = function (req, res) {
               gunSkin: gunSkin,
               shieldSkin: shieldSkin
             };
+            res.json({error: false, status: "Battle started", data: singleBattles[req.session.user.username] });
           }
-          res.json({error: false, status: "Battle started", data: singleBattles[req.session.user.username] });
         });
       }
     } else {
@@ -367,6 +376,7 @@ exports.wearGood = function (req, res) {
         User.findOne({ username: username}, function (err, user) {
           if (err) {
             console.log('mongodb error', err);
+            res.status(500).send('Mongo error:', err);
           } else {
             if (singleBattles[username].healthEnemy === 0 && singleBattles[username].healthPlayer === 0) {
               // a draw
@@ -391,6 +401,92 @@ exports.wearGood = function (req, res) {
    }
  };
  
+exports.adminStat = function (req, res) {
+  if (req.session.user && req.session.admin) {
+    User.find({}, function(err, users) {
+      var stat;
+      if (err) {
+        console.log('! mongodb error', err);
+        res.status(500).send('Mongo error:', err);
+      } else {
+        stat = {
+          total:users.length,
+          banned: 0,
+          admin: 0
+        };
+        for (var i = 0, l = users.length; i < l; i++) {
+          if(users[i].status === 0) {
+            stat.banned++;
+          } else if (users[i].status === 2) {
+            stat.admin++;
+          }
+        }
+        res.json({
+          error: false, status: 'OK', 
+          data: {
+            stat: stat,
+            memory: process.memoryUsage()
+          }
+        });
+      }
+    });
+  } else {
+    res.render('admin_login', { error: true});
+  }
+};
+ 
+exports.adminUsers = function (req, res) {
+  if (req.session.user && req.session.admin) {
+    User.find({}, function(err, users) {
+      var filteredUsers = [];
+      if (err) {
+        console.log('! mongodb error', err);
+        res.status(500).send('Mongo error:', err);
+      } else {
+        for (var i = 0, l = users.length; i < l; i++)
+          filteredUsers.push({
+            username: users[i].username,
+            avatar: users[i].avatar,
+            status: users[i].status,
+            stat: users[i].stat,
+            cash: users[i].cash,
+            email: users[i].email,
+            level: users[i].level,
+            banTime: users[i].banTime,
+            lastLogin: users[i].lastLogin,
+            lastLoginIP: users[i].lastLoginIP,
+            lastLoginUA: users[i].lastLoginUA
+          });
+        res.json({
+          error: false, status: 'OK', 
+          data: { users: filteredUsers }
+        });
+      }
+    });
+  } else {
+    res.render('admin_login', { error: true});
+  }
+};
+
+exports.adminBan = function (req, res) {
+  if (req.session.user && req.session.admin) {
+    var username = req.body.username, time = 1 * req.body.time, reason = req.body.reason;
+      User.findOneAndUpdate({ username: username },
+        { banTime: time, banReason: reason },
+        { safe: true, upsert: true},
+      function (err, result) {
+        if (err) {
+          console.log('error', err);
+          res.status(500).send('Mongo error:', err);
+        } else {
+          res.json({error: false, status: "Updated ban for user: " + username, data: {} });            
+        }
+      });
+  } else {
+    res.render('admin_login', { error: true});
+  }
+};
+
  // helpers
 function getNewDateString () {
   var t = new Date();

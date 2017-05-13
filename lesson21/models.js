@@ -33,6 +33,7 @@ var schemaUser = new Schema({
   lastLoginIP: { type: String, default: '' },
   lastLoginUA: { type: String, default: '' },
   banTime: { type: Date, default: 1 },
+  banReason: { type: String, default: '' },  
   state: { type: Number, default: 0 }
 });
 

@@ -165,6 +165,13 @@ app.post('/api/goods/user/:id/wear', Api.wearGood);
  
  app.post('/api/single-battle/start', Api.startBattle);
  app.post('/api/single-battle/turn', Api.turnBattle);
+ 
+ // admin'sAPI
+ 
+ app.get('/api/admin/stat', Api.adminStat);
+ app.get('/api/admin/users', Api.adminUsers);
+ app.get('/api/admin/goods', Api.getGoods);
+ app.post('/api/admin/ban', Api.adminBan);
 
 app.listen(port);
 console.log('Web-app was started at port ' + port);
