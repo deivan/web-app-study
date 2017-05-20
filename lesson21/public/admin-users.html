@@ -8,12 +8,12 @@
       <th class="admin-users__table--cash">Cash</th>
       <th class="admin-users__table--status">Status</th>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr ng-repeat="user in users">
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.level}}</td>
+      <td>{{user.cash}}</td>
+      <td>{{statuses[user.status]}}</td>
     </tr>
   </table>
   <div class="admin-users__details">

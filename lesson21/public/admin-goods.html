@@ -9,13 +9,13 @@
     <th>Power</th>
     <th>Lifetime</th>
   </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+  <tr ng-repeat="g in goods">
+    <td>{{g.type}}</td>
+    <td><img src="../{{g.image}}" /></td>
+    <td>{{g.name}}</td>
+    <td>{{g.description}}</td>
+    <td>{{g.price | number:2}}</td>
+    <td>{{g.power}}</td>
+    <td>{{g.lifetime}}</td>
   </tr>
 </table>

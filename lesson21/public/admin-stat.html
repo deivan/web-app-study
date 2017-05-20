@@ -9,6 +9,8 @@
     <div class="admin-stat__row--value">{{stat.stat.admin}}</div>
     <hr>
     <div class="admin-stat__row--label">Used memory</div>
-    <div class="admin-stat__row--value">{{stat.memory.rss}}</div>
+    <div class="admin-stat__row--value">
+      {{stat.memory.rss/1024/1024 | number:1 }} Mb
+    </div>
   </div>
 </div>

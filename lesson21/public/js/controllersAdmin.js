@@ -9,12 +9,19 @@ angular.module('appAdmin')
     });
   })
   
-  .controller('AdminUsersPage', function ($scope) {
-    
+  .controller('AdminUsersPage', function ($scope, serviceAdmin) {
+    $scope.users = [];
+    $scope.statuses = ['banned','','admin'];
+    serviceAdmin.getUsers().then(function (data) {
+      $scope.users = data.data;
+    });
   })
   
-  .controller('AdminGoodsPage', function ($scope) {
-    
+  .controller('AdminGoodsPage', function ($scope, serviceAdmin) {
+    $scope.goods = [];
+    serviceAdmin.getGoods().then(function (data) {
+      $scope.goods = data.data;
+    });
   })
   
   .controller('AdminBanPage', function ($scope) {

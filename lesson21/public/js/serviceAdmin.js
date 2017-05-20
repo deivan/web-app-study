@@ -1,7 +1,9 @@
 angular.module('appAdmin')
   .service('serviceAdmin', function ($http, $q, $rootScope) {
     return ({
-      getStat: getStat
+      getStat: getStat,
+      getUsers: getUsers,
+      getGoods: getGoods
     });
     
     function getStat () {
@@ -14,7 +16,27 @@ angular.module('appAdmin')
       return (request.then( handleSuccess, handleError ));
     }
     
-    // response handlers
+    function getUsers () {
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'get',
+        url: '/api/admin/users',
+        data: {}
+      });
+      return (request.then( handleSuccess, handleError ));
+    }
+
+    function getGoods () {
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'get',
+        url: '/api/admin/goods',
+        data: {}
+      });
+      return (request.then( handleSuccess, handleError ));
+    }
+    
+    // response handlers 
     function handleSuccess (response) {
       $rootScope.isShowLoading = false;
          console.log('request result: ', response);
