@@ -2,15 +2,13 @@
 <div class="admin-stat">
   <div class="admin-stat__row">
     <div class="admin-stat__row--label">Users total</div>
-    <div class="admin-stat__row--value"></div>
-    <div class="admin-stat__row--label">Users total</div>
-    <div class="admin-stat__row--value"></div>
+    <div class="admin-stat__row--value">{{stat.stat.total}}</div>
     <div class="admin-stat__row--label">Users banned</div>
-    <div class="admin-stat__row--value"></div>
+    <div class="admin-stat__row--value">{{stat.stat.banned}}</div>
     <div class="admin-stat__row--label">Admin users</div>
-    <div class="admin-stat__row--value"></div>
+    <div class="admin-stat__row--value">{{stat.stat.admin}}</div>
     <hr>
     <div class="admin-stat__row--label">Used memory</div>
-    <div class="admin-stat__row--value"></div>
+    <div class="admin-stat__row--value">{{stat.memory.rss}}</div>
   </div>
 </div>

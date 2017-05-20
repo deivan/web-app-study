@@ -1,6 +1,12 @@
 angular.module('appAdmin')
-  .controller('AdminStatPage', function ($scope) {
-    
+  .controller('main', function ($scope) {
+          
+  })
+  .controller('AdminStatPage', function ($scope, serviceAdmin) {
+    $scope.stat = {};
+    serviceAdmin.getStat().then(function(data){
+      $scope.stat = data.data;
+    });
   })
   
   .controller('AdminUsersPage', function ($scope) {

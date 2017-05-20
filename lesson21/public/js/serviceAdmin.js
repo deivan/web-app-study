@@ -1,4 +1,35 @@
 angular.module('appAdmin')
-  .service('serviceAdmin', function ($scope) {
+  .service('serviceAdmin', function ($http, $q, $rootScope) {
+    return ({
+      getStat: getStat
+    });
     
+    function getStat () {
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'get',
+        url: '/api/admin/stat',
+        data: {}
+      });
+      return (request.then( handleSuccess, handleError ));
+    }
+    
+    // response handlers
+    function handleSuccess (response) {
+      $rootScope.isShowLoading = false;
+         console.log('request result: ', response);
+         return (response.data);
+    }
+
+    function handleError (response) {
+      $rootScope.isShowLoading = false;
+       console.log('ERROR result: ', response);
+       if (
+           ! angular.isObject( response.data ) ||
+           ! response.data
+           ) {
+           return ($q.reject({ detail: response.status + ': ' + response.statusText }));
+       }
+       return ($q.reject(response.data));
+    }
 });
