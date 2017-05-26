@@ -1093,7 +1093,114 @@ minigames__cr--message {
   color: #fff;
   text-align: center;
   cursor:pointer;
-} 
+}
+
+/* Admin zone */
+
+.admin-stat, .admin-users {
+  float:left;
+  width:100%;
+  padding: 10px 0;
+}
+
+.admin-stat .admin-stat__row {
+  width:100%;
+  height:30px;
+  line-height:30px;
+}
+
+.admin-stat .admin-stat__row .admin-stat__row--label, 
+.admin-stat .admin-stat__row .admin-stat__row--value {
+  width: 150px;
+  float: left;
+}
+
+.admin-users__table th, .admin-goods th {
+  font-weight: 900;
+  border: none;
+  border-bottom: 2px double #ccc;
+}
+
+.admin-users__table tr {
+  height: 30px;
+  line-height: 30px;
+}
+
+.admin-users__table tr:nth-child(odd) {
+  background-color: #eee;
+}
+
+.admin-users__table .admin-users__table--username {
+  width: 200px;
+}
+
+.admin-users__table .admin-users__table--email {
+  width: 300px;
+}
+
+.admin-users__table .admin-users__table--level {
+  width: 50px;
+}
+
+.admin-users__table .admin-users__table--cash {
+  width: 100px;
+}
+
+.admin-users__table .admin-users__table--banned {
+  width: 100px;
+}
+
+/*    admin goods     */
+
+.admin-goods tr {
+  height: 100px;
+}
+
+.admin-goods tr:nth-child(even) {
+  background-color: #eee;
+}
+
+.admin-goods .admin-goods__type {
+  width: 60px;
+}
+
+.admin-goods .admin-goods__image {
+  width: 100px;
+}
+
+.admin-goods .admin-goods__image .admin-goods__image--cover {
+  width: 100px;
+  height:100px;
+  overflow: hidden;
+}
+
+.admin-goods .admin-goods__name {
+  width: 200px;
+  text-align: left;
+}
+
+.admin-goods .admin-goods__description {
+  width: 250px;
+  text-align: left;
+}
+
+.admin-goods .admin-goods__price {
+  width: 60px;
+}
+
+.admin-goods .admin-goods__power {
+  width: 40px;
+}
+
+.admin-goods .admin-goods__lifetime {
+  width: 40px;
+}
+
+.admin-goods tr td {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
 
 /*  ======== animations ========== */
 

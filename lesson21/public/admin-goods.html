@@ -1,21 +1,27 @@
 <h1>Goods</h1>
 <table class="admin-goods">
   <tr>
-    <th>Type</th>
-    <th>Image</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Price</th>
-    <th>Power</th>
-    <th>Lifetime</th>
+    <th class="admin-goods__type">Type</th>
+    <th class="admin-goods__image">Image</th>
+    <th class="admin-goods__name">Name</th>
+    <th class="admin-goods__description">Description</th>
+    <th class="admin-goods__price">Price</th>
+    <th class="admin-goods__power">Power</th>
+    <th class="admin-goods__lifetime">Lifetime</th>
+    <th></th>
   </tr>
   <tr ng-repeat="g in goods">
-    <td>{{g.type}}</td>
-    <td><img src="../{{g.image}}" /></td>
-    <td>{{g.name}}</td>
-    <td>{{g.description}}</td>
-    <td>{{g.price | number:2}}</td>
-    <td>{{g.power}}</td>
-    <td>{{g.lifetime}}</td>
+    <td class="admin-goods__type">{{g.type}}</td>
+    <td class="admin-goods__image">
+      <div class="admin-goods__image--cover">
+        <img src="../{{g.image}}" />
+      </div>
+    </td>
+    <td class="admin-goods__name">{{g.title}}</td>
+    <td class="admin-goods__description">{{g.description}}</td>
+    <td class="admin-goods__price">{{g.price | number:2}}</td>
+    <td class="admin-goods__power">{{g.power}}</td>
+    <td class="admin-goods__lifetime">{{g.time}}</td>
+    <td><a href >Edit</a></td>
   </tr>
 </table>

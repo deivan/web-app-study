@@ -470,18 +470,20 @@ exports.adminUsers = function (req, res) {
 
 exports.adminBan = function (req, res) {
   if (req.session.user && req.session.admin) {
-    var username = req.body.username, time = 1 * req.body.time, reason = req.body.reason;
-      User.findOneAndUpdate({ username: username },
-        { banTime: time, banReason: reason },
-        { safe: true, upsert: true},
-      function (err, result) {
-        if (err) {
-          console.log('error', err);
-          res.status(500).send('Mongo error:', err);
-        } else {
-          res.json({error: false, status: "Updated ban for user: " + username, data: {} });            
-        }
-      });
+    var username = req.body.username, 
+        time = req.body.time === undefined || req.body.time === '' ? 1 : req.body.time, 
+        reason = req.body.reason;
+    User.findOneAndUpdate({ username: username },
+      { banTime: new Date (time), banReason: reason },
+      { safe: true, upsert: true},
+    function (err, result) {
+      if (err) {
+        console.log('error', err);
+        res.status(500).send('Mongo error:', err);
+      } else {
+        res.json({error: false, status: "Updated ban for user: " + username, data: {} });            
+      }
+    });
   } else {
     res.render('admin_login', { error: true});
   }

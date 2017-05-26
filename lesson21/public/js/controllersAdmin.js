@@ -24,6 +24,35 @@ angular.module('appAdmin')
     });
   })
   
-  .controller('AdminBanPage', function ($scope) {
+  .controller('AdminBanPage', function ($scope, serviceAdmin) {
+    $scope.users = [];
+    $scope.user = '';
+    $scope.time = '';
+    $scope.reason = '';
+    $scope.result = '';
     
+    getUsers();
+    
+    $scope.updateUser = function (user) {
+      if (user !== null) {
+        $scope.time = new Date (user.banTime);
+        $scope.reason = user.banReason;
+        $scope.result = '';
+      }
+
+    };
+    
+    $scope.changeBan = function () {
+      serviceAdmin.ban($scope.user.username, $scope.time, $scope.reason).then(function (data) {
+        getUsers();
+        $scope.result = 'Done.';
+      });
+    };
+    
+    function getUsers () {
+      serviceAdmin.getUsers().then(function (data) {
+        $scope.users = data.data;
+        if (data.data.length !== 0) $scope.user = data.data[0].username;
+      });
+    }
   });

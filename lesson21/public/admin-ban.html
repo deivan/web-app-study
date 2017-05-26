@@ -1,13 +1,12 @@
 <h1>Ban</h1>
-<table class="admin-ban">
-  <tr>
-    <th>Username</th>
-    <th>Banned time</th>
-    <th>Reason</th>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
+<div class="admin-ban">
+  <select class="admin-ban__select" 
+    ng-model="user" 
+    ng-options="u as u.username for u in users"
+    ng-change="updateUser(user)" ></select>
+  <input type="date" class="admin-ban__time" ng-model="time" />
+  <input type="text" class="admin-ban__reason" ng-model="reason" />
+  <button ng-click="changeBan()">Change ban</button>
+</div>
+<hr />
+<div class="admin-ban" style="color:#0f0">{{result}}</div>

@@ -3,7 +3,8 @@ angular.module('appAdmin')
     return ({
       getStat: getStat,
       getUsers: getUsers,
-      getGoods: getGoods
+      getGoods: getGoods,
+      ban: ban
     });
     
     function getStat () {
@@ -32,6 +33,16 @@ angular.module('appAdmin')
         method: 'get',
         url: '/api/admin/goods',
         data: {}
+      });
+      return (request.then( handleSuccess, handleError ));
+    }
+    
+    function ban (name, time, reason) {
+      $rootScope.isShowLoading = true;
+      var request = $http({
+        method: 'post',
+        url: '/api/admin/ban',
+        data: { username: name, time: time, reason: reason }
       });
       return (request.then( handleSuccess, handleError ));
     }
