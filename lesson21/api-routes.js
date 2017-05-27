@@ -453,6 +453,7 @@ exports.adminUsers = function (req, res) {
             email: users[i].email,
             level: users[i].level,
             banTime: users[i].banTime,
+            banReason: users[i].banReason,
             lastLogin: users[i].lastLogin,
             lastLoginIP: users[i].lastLoginIP,
             lastLoginUA: users[i].lastLoginUA

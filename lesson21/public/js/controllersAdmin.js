@@ -12,9 +12,20 @@ angular.module('appAdmin')
   .controller('AdminUsersPage', function ($scope, serviceAdmin) {
     $scope.users = [];
     $scope.statuses = ['banned','','admin'];
+    $scope.isUserDetailsShow = false;
     serviceAdmin.getUsers().then(function (data) {
       $scope.users = data.data;
     });
+    
+    $scope.showDetails = function (user) {
+      $scope.currentUser = user;
+      $scope.isUserDetailsShow = true;
+    };
+    
+    $scope.hideDetails = function (user) {
+      $scope.currentUser = {};
+      $scope.isUserDetailsShow = false;
+    };
   })
   
   .controller('AdminGoodsPage', function ($scope, serviceAdmin) {

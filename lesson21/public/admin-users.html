@@ -8,7 +8,7 @@
       <th class="admin-users__table--cash">Cash</th>
       <th class="admin-users__table--status">Status</th>
     </tr>
-    <tr ng-repeat="user in users">
+    <tr ng-repeat="user in users" ng-click="showDetails(user)">
       <td>{{user.username}}</td>
       <td>{{user.email}}</td>
       <td>{{user.level}}</td>
@@ -16,9 +16,29 @@
       <td>{{statuses[user.status]}}</td>
     </tr>
   </table>
-  <div class="admin-users__details">
+  <div class="admin-users__details" ng-show="isUserDetailsShow">
     <div class="admin-users__details--content">
-      
+      <table>
+        <tr>
+          <td>Username:</td><td>{{currentUser.username}}</td>
+        </tr>
+        <tr>
+          <td>Email:</td><td>{{currentUser.email}}</td>
+        </tr>
+        <tr>
+          <td>Level:</td><td>{{currentUser.level}}</td>
+        </tr>
+        <tr>
+          <td>Cash:</td><td>{{currentUser.cash}}</td>
+        </tr>
+        <tr>
+          <td>Status:</td><td>{{statuses[currentUser.status]}}</td>
+        </tr>
+        <tr>
+          <td>Username:</td><td>{{currentUser.username}}</td>
+        </tr>
+      </table>
+      <button ng-click="hideDetails()">Close</button>
     </div>
   </div>
 </div>
