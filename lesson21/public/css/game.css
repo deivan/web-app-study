@@ -1170,6 +1170,17 @@ minigames__cr--message {
   color: #000;
 }
 
+.admin-users__details .admin-goods__users--content table {
+  width: 100%;
+}
+
+.admin-users__details .admin-users__details--content table tr td:nth-child(1) {
+  font-weight: 900;
+  text-align: right;
+  padding-left:10px;
+  width:130px;
+}
+
 .admin-goods__details .admin-goods__details--content {
   margin:100px auto;
   width: 600px;
@@ -1177,6 +1188,15 @@ minigames__cr--message {
   border-radius:10px;
   background-color: #fff;
   color: #000;
+}
+
+.admin-goods__details .admin-goods__details--content table {
+  width: 100%;
+}
+
+.admin-goods__details .admin-goods__details--content table tr td:nth-child(1) {
+  font-weight: 900;
+  text-align: right;
 }
 
 /*    admin goods     */
