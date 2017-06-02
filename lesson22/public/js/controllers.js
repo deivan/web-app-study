@@ -395,5 +395,41 @@ angular.module('app')
   })
   
   .controller('SingleBattleDuel', function ($scope, $timeout, appService, $rootScope, $route) {
-  
+    $scope.isRequestsShow = true;
+    $scope.isRequestAdded = false;
+    
+    $scope.overlay = true;
+    $scope.selectedShield = null;
+    $scope.selectedStrike = null;
+    
+    $scope.playerStyle = {};
+    $scope.enemyStyle = {};
+    
+    $scope.enemyStrikeShow = false;
+    $scope.enemyShieldShow = false;
+    $scope.enemyStrikeStyle = {};
+    $scope.enemyShieldStyle = {};
+    
+    $scope.strikeStyles = [ null,
+      { top: '10px', left: '20px' },
+      { top: '110px', left: '15px' },
+      { top: '110px', left: '100px' }
+    ];
+    $scope.shieldStyles = [ null,
+      { top: '15px', left: '110px' },
+      { top: '115px', left: '110px' },
+      { top: '115px', left: '30px' }
+    ];
+    
+    $scope.gunSkin = {};
+    $scope.shieldSkin = {};
+    $scope.playerMoving = { top: '70px' };
+    $scope.enemyMoving =  { top: '70px' };
+       
+    $scope.requests = [
+      { username: '111', level: 1, health: 12, strike: 4 },
+      { username: '222', level: 1, health: 10, strike: 5 },
+      { username: '333', level: 1, health: 15, strike: 6 },
+      { username: '444', level: 1, health: 12, strike: 6 }
+    ];
   });

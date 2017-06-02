@@ -808,6 +808,40 @@ minigames__cr--message {
   background-color:black;
 }
 
+.single-battles__content.content--request {
+  background-color: white;
+  color: black;
+}
+
+.single-battles__content.content--request a {
+  float:left;
+  margin: 10px;
+  text-decoration: none;
+  color: #00a;
+  font-weight:900;
+}
+
+.single-battles__requests {
+  width:100%;
+  overflow-y: auto;
+}
+
+.single-battles__requests--body {
+  display: inline-block;
+  float: left;
+  width:220px;
+  height:30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 3px 10px;
+  padding:15px;
+  cursor: pointer;
+}
+
+.single-battles__requests--body span:first-child {
+  font-weight:900;
+}
+
 .single-battles__content .single-battles__overlay {
   position:absolute;
   top:0px;

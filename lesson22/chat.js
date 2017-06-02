@@ -1,4 +1,4 @@
-var WebSocketServer = new require('ws');
+var WebSocketServer = require('ws');
 
 // подключенные клиенты
 var clients = {};
@@ -26,3 +26,5 @@ wss.on('connection', function (ws) {
   });
 
 });
+
+exports.chat = clients;

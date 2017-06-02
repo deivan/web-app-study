@@ -1,6 +1,19 @@
 <h1>Single battle with real opponent</h1>
 
-<div class="single-battles__content">
+<div class="single-battles__content content--request" ng-show="isRequestsShow">
+  <a href ng-click="isRequestAdded = true" ng-hide="isRequestAdded">+ Add request for battle</a>
+  <a href ng-click="isRequestAdded = false" ng-show="isRequestAdded">- Remove request for battle</a>
+  <ul class="single-battles__requests">
+    <li class="single-battles__requests--body" ng-repeat="item in requests">
+      <span>Name: {{item.username}}</span><br />
+      <span>Level: {{item.level}}</span>
+      <span> Health: {{item.health}}</span>
+      <span> Strike: {{item.strike}}</span>
+    </li>
+  </ul>
+</div>
+
+<div class="single-battles__content" ng-hide="isRequestsShow">
   <div class="single-battles__player">
     <div class="single-battles__player--wings" ng-class="{'selected':selectedShield === 1}" ng-click="hitPlayer(1)"></div>
     <div class="single-battles__player--body" ng-class="{'selected':selectedShield === 2}" ng-click="hitPlayer(2)"></div>
