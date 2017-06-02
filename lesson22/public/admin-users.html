@@ -1,0 +1,65 @@
+<h1>Users</h1>
+<div class="admin-users">
+  <table class="admin-users__table">
+    <tr>
+      <th class="admin-users__table--username">Username</th>
+      <th class="admin-users__table--email">Email</th>
+      <th class="admin-users__table--level">Level</th>
+      <th class="admin-users__table--cash">Cash</th>
+      <th class="admin-users__table--status">Status</th>
+    </tr>
+    <tr ng-repeat="user in users" ng-click="showDetails(user)" style="cursor:pointer">
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.level}}</td>
+      <td>{{user.cash}}</td>
+      <td>{{statuses[user.status]}}</td>
+    </tr>
+  </table>
+  <div class="admin-users__details" ng-show="isUserDetailsShow">
+    <div class="admin-users__details--content">
+      <table>
+        <tr>
+          <td>Username:</td><td>{{currentUser.username}}</td>
+        </tr>
+        <tr>
+          <td>Avatar:</td><td><img src="{{currentUser.avatar}}" width="70" height="70"/></td>
+        </tr>
+        <tr>
+          <td>Email:</td><td>{{currentUser.email}}</td>
+        </tr>
+        <tr>
+          <td>Level:</td><td>{{currentUser.level}}</td>
+        </tr>
+        <tr>
+          <td>Cash:</td><td>{{currentUser.cash}}</td>
+        </tr>
+        <tr>
+          <td>Status:</td><td>{{statuses[currentUser.status]}}</td>
+        </tr>
+        <tr>
+          <td>Statistic:</td><td>Wins: {{currentUser.stat.wins}}, Fails: {{currentUser.stat.looses}}, Draws: {{currentUser.stat.draws}}</td>
+        </tr>
+        <tr>
+          <td>Last login:</td><td>{{currentUser.lastLogin|date:"HH:mm dd-MM-yyyy"}}</td>
+        </tr>
+        <tr>
+          <td>Last login IP:</td><td>{{currentUser.lastLoginIP}}</td>
+        </tr>
+        <tr>
+          <td>User-Agent:</td><td>{{currentUser.lastLoginUA}}</td>
+        </tr>
+        <tr>
+          <td>Banned:</td><td>{{currentUser.banTime|date:"HH:mm dd-MM-yyyy"}}</td>
+        </tr>
+         <tr>
+          <td>Ban reason:</td><td>{{currentUser.banReason}}</td>
+        </tr>
+        <tr><td  colspan="2" style="text-align:center">
+          <button ng-click="hideDetails()" style="display:inline">Close</button>
+        </td></tr>
+      </table>
+      
+    </div>
+  </div>
+</div>

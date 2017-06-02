@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome to Battles Birds game!</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body>
+        <div class="main">
+            <div class="content animation-appear wrong-zone">
+                <h1>You are banned. You was a bad boy (girl).</h1>
+                <p> You banned to: 
+                  <%= 
+                  ( (
+                     time.getHours() < 10 
+                      ? '0'+ time.getHours() 
+                      : time.getHours()
+                     ) + 
+                    ':' + (
+                            time.getMinutes() < 10 
+                              ? '0' + time.getMinutes() 
+                              : time.getMinutes()
+                          ) + 
+                    ' ' + (
+                            time.getDate() < 10 
+                              ? '0' + time.getDate() 
+                              : time.getDate()
+                          ) + 
+                    '-' + ( time.getMonth() < 9 
+                            ? '0' + (1 + time.getMonth())
+                            : (1 + time.getMonth())
+                          ) 
+                    + '-' + time.getFullYear() )
+                  %></p>
+                <p>I hope you will change your behavior in future.</p>
+                <p>And now, let see this amazing kitten!</p>
+                <img src="images/kitten.jpg" style="margin:50px auto;width:100%" />
+            </div>
+        </div>
+    </body>
+</html>

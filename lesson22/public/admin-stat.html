@@ -1,0 +1,22 @@
+<h1>Statistic</h1>
+<div class="admin-stat">
+  <div class="admin-stat__row">
+    <div class="admin-stat__row--label">Users total</div>
+    <div class="admin-stat__row--value">{{stat.stat.total}}</div>
+  </div>
+  <div class="admin-stat__row">
+    <div class="admin-stat__row--label">Users banned</div>
+    <div class="admin-stat__row--value">{{stat.stat.banned}}</div>
+  </div>
+  <div class="admin-stat__row">
+    <div class="admin-stat__row--label">Admin users</div>
+    <div class="admin-stat__row--value">{{stat.stat.admin}}</div>
+  </div>
+  <hr>
+  <div class="admin-stat__row">
+    <div class="admin-stat__row--label">Used memory</div>
+    <div class="admin-stat__row--value">
+      {{stat.memory.rss/1024/1024 | number:1 }} Mb
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<h1>Goods</h1>
+<table class="admin-goods">
+  <tr>
+    <th class="admin-goods__type">Type</th>
+    <th class="admin-goods__image">Image</th>
+    <th class="admin-goods__name">Name</th>
+    <th class="admin-goods__description">Description</th>
+    <th class="admin-goods__price">Price</th>
+    <th class="admin-goods__power">Power</th>
+    <th class="admin-goods__lifetime">Lifetime</th>
+    <th></th>
+  </tr>
+  <tr ng-repeat="g in goods">
+    <td class="admin-goods__type">{{g.type}}</td>
+    <td class="admin-goods__image">
+      <div class="admin-goods__image--cover">
+        <img src="../{{g.image}}" />
+      </div>
+    </td>
+    <td class="admin-goods__name">{{g.title}}</td>
+    <td class="admin-goods__description">{{g.description}}</td>
+    <td class="admin-goods__price">{{g.price | number:2}}</td>
+    <td class="admin-goods__power">{{g.power}}</td>
+    <td class="admin-goods__lifetime">{{g.time}}</td>
+    <td><a href >Edit</a></td>
+  </tr>
+</table>
+  <div class="admin-goods__details">
+    <div class="admin-goods__details--content">
+      
+    </div>
+  </div>
