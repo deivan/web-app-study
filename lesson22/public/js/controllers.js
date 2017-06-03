@@ -398,7 +398,7 @@ angular.module('app')
     $scope.isRequestsShow = true;
     $scope.isRequestAdded = false;
     
-    $scope.overlay = true;
+    $scope.overlay = false;
     $scope.selectedShield = null;
     $scope.selectedStrike = null;
     
@@ -432,4 +432,35 @@ angular.module('app')
       { username: '333', level: 1, health: 15, strike: 6 },
       { username: '444', level: 1, health: 12, strike: 6 }
     ];
+    
+    $scope.addRequest = function () {
+      $scope.isRequestAdded = true;
+      $scope.requests.push({
+        username: $rootScope.profile.username,
+        level: $rootScope.profile.level,
+        health: 10,
+        strike: 5
+      });
+    };
+    
+    $scope.removeRequest = function () {
+      $scope.isRequestAdded = false;
+      for (var i=0; i < $scope.requests.length; i++) {
+        if ($scope.requests[i].username === $rootScope.profile.username)
+          $scope.requests.splice(i,1);
+      }
+    };
+    
+    $scope.startBattle = function (item) {
+      if (!$scope.isRequestAdded) {
+        console.log(item);
+        $scope.isRequestsShow = false;
+      }
+    };
+    
+    $timeout(function () {
+      if ($scope.isRequestAdded) {
+        $scope.isRequestsShow = false;
+      }
+    }, 6000);
   });
